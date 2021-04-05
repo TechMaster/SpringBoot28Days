@@ -40,3 +40,18 @@ Giải thích về Position (vị trí trên sân của cầu thủ):
 
 Đội hình ra sân luôn giới hạn 11 cầu thủ, trong đó chắc chắn chỉ có 1 thủ môn (GK), 4 hậu vệ (DF), 4 trung vệ (MF), 2
 tiền đạo (FW)
+
+## Gợi ý
+```
+.
+├── controller
+│   └── APIController.java
+├── model
+│   ├── Coach.java
+│   └── Player.java
+├── repository
+│   └── PlayerRepository.java
+├── service
+│   └── CoachService.java
+└── BarcelonateamApplication.java
+```
