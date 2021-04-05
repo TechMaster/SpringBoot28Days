@@ -5,6 +5,7 @@
 Hãy viết một ứng dụng dạng Console nhập từ bàn phím cho đến khi người dùng gõ ký tự 'Q' hoặc 'q'
 
 Nếu chuỗi ký tự nhập vào có thể chuyển thành số tự nhiên, thì hãy sắp xếp theo thứ tự tăng dần. Ví dụ nhập vào:
+
 ```
 3
 1
@@ -14,6 +15,7 @@ Nếu chuỗi ký tự nhập vào có thể chuyển thành số tự nhiên, t
 2
 q
 ```
+
 Mảng ngay sau khi nhập sẽ là
 ```1, 2, 3, 5, 7, 8```
 
@@ -27,6 +29,8 @@ Mảng ngay sau khi nhập sẽ là
 4. Nhập vào một số X trong khoảng từ -10 đến 10
 5. Hãy liệt kê tất cả các cặp 2 số trong mảng có tổng gần với số X nhất.
 
-  **Hướng dẫn các làm bài này:**
-- Hãy viết thành các phương thức, mỗi phương thức chỉ tập trung làm một việc, tham số hoá chứ không nên dùng biến toàn cục. Quy tắc Clean Code
+**Hướng dẫn các làm bài này:**
+
+- Hãy viết thành các phương thức, mỗi phương thức chỉ tập trung làm một việc, tham số hoá chứ không nên dùng biến toàn
+  cục. Quy tắc Clean Code
 - Có thể tạo sẵn một mảng khoảng 10 phần tử để kiểm tra khi chạy cho dễ dàng.
