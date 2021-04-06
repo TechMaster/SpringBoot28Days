@@ -14,3 +14,14 @@
 10. Hướng dẫn cài đặt JSON viewer extension trong Chrome để xem dữ liệu JSON trả về tốt hơn.
 11. [Code ví dụ mẫu REST bán chưng cư](01-ToolJavaCoreCleanCode/ApartmentSelling)
 12. Bài tập về nhà: [xây dựng REST API để chọn ra đội hình thi đấu của đội bóng Barcelona](01-ToolJavaCoreCleanCode/Barcelona/barcelonateam)
+
+## 02: Chữa bài tập và ôn tập Collection trong Java Core
+Nội dung dự kiến
+
+1. Random số nguyên trong một dải.
+2. Chọn ngẫu nhiên một phần tử trong mảng.
+3. Chọn ngẫu nhiên không lặp lại phần tử đã chọn.
+4. Chữa bài tập chọn đội bóng.
+5. Các cách sắp xếp dữ liệu trong mảng
+6. Bỏ qua một số trường khi trả về JSON
+7. Đọc dữ liệu từ CSV, JSON. Cách thêm dependency vào maven.
