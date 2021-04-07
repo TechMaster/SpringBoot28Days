@@ -16,12 +16,20 @@
 12. Bài tập về nhà: [xây dựng REST API để chọn ra đội hình thi đấu của đội bóng Barcelona](01-ToolJavaCoreCleanCode/Barcelona/barcelonateam)
 
 ## 02: Chữa bài tập và ôn tập Collection trong Java Core
-Nội dung dự kiến
 
 1. Random số nguyên trong một dải.
 2. Chọn ngẫu nhiên một phần tử trong mảng.
 3. Chọn ngẫu nhiên không lặp lại phần tử đã chọn.
-4. Chữa bài tập chọn đội bóng.
-5. Các cách sắp xếp dữ liệu trong mảng
-6. Bỏ qua một số trường khi trả về JSON
-7. Đọc dữ liệu từ CSV, JSON. Cách thêm dependency vào maven.
+4. Chữa bài tập chọn đội bóng. [Xem link](02-Collection_QueryParam/Barcelona)
+
+**Bài tập lập trình về nhà:**
+- Hoàn thiện phương thức thay cầu thủ đáp ứng đúng quy luật bóng đá quốc tế.
+  - Mỗi trận được phép thay tối đa 5 cầu thủ.
+  - Cầu thủ đã bị thay ra không được phép vào sân lại.
+
+- Viết mô tả quy trình book chỗ, đặt vé chiếu phim qua mạng:
+  - Các đối tượng (model)
+  - Các trạng thái
+  - Luồng xử lý và thay đổi trạng thái
+
+Hãy tạo Github repo, push code lên, giải thích chi tiết từng bước rồi gửi riêng cho thầy!
