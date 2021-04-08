@@ -59,7 +59,7 @@ Hoặc mở Docker Dashboard ra xem:
 
 ![](images/container_dashboard.jpg)
 
-## 2. Tạo một topic
+## 2. Tạo một topic có tên là ```example-topic```
 
 ```
 $ docker-compose exec broker kafka-topics --create --topic example-topic --bootstrap-server broker:9092 --replication-factor 1 --partitions 2
@@ -135,7 +135,7 @@ import (
 func main() {
 
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
-		"bootstrap.servers": "localhost:29092",
+		"bootstrap.servers": "localhost:29092",  //chú ý port phải đúng
 		"group.id":          "myGroup",
 		"auto.offset.reset": "earliest",
 	})
@@ -144,7 +144,7 @@ func main() {
 		panic(err)
 	}
 
-	c.SubscribeTopics([]string{"example-topic"}, nil)
+	c.SubscribeTopics([]string{"example-topic"}, nil) //Có thể subscribe nhiều topic hoặc theo regular expression
 
 	for {
 		msg, err := c.ReadMessage(-1)
