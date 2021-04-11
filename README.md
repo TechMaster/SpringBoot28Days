@@ -33,3 +33,16 @@
   - Luồng xử lý và thay đổi trạng thái
 
 Hãy tạo Github repo, push code lên, giải thích chi tiết từng bước rồi gửi riêng cho thầy!
+
+## 03: Thực hành Git
+1. Tìm hiểu về cách hoạt động của git (trạng thái files, git head)
+2. clone một project có sẵn, khởi tạo một project mới có sử dụng git
+3. hướng dẫn commit code, push code lên remote repository
+4. hướng dẫn tạo nhánh và làm việc với nhánh
+5. hướng dẫn merge code với (git merge & rebase)
+6. hướng dẫn xử lý khi bị conflict code
+7. tìm hiểu và sử dụng git revert, git reset, git stash
+8. giới thiệu tìm hiểu mô hình git workflow
+9. giới thiệu tìm hiểu mô hình GitHub workflow
+
+
