@@ -4,6 +4,10 @@ Tập đoàn V quyết định mua lại toàn bộ các rạp chiếu phim củ
 
 Bạn là kỹ sư phần mềm được giao nhiệm vụ thiết kế hệ thống REST API để ứng dụng web - di động kết nối vào đặt - mua vé. Hãy thiết kế chi tiết các Model và Work Flow rồi sau đó là REST API.
 
+Nếu bạn chưa thạo về Java Collection, hãy xem bài viết này [Java Collections Tutorials and Examples Series](https://hellokoding.com/java-collections-framework/)
+
+![](images/vincinema.webp)
+
 ## Các model
 1. Film: một phim cụ thể ví dụ "Bố Già", "Gorilla vs Kong".
 2. Cinema: một rạp chiếu phim ở một địa điểm cụ thể. Vd: rạp CGV VinCom Bà Triệu.
