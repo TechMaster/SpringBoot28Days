@@ -45,4 +45,13 @@ Hãy tạo Github repo, push code lên, giải thích chi tiết từng bước 
 8. giới thiệu tìm hiểu mô hình git workflow
 9. giới thiệu tìm hiểu mô hình GitHub workflow
 
+## 04: Chữa bài tập, VinCinema
+1. Mời anh Tân lên chữa bài Barcelona Team, chức năng thay cầu thủ : substitute.
+2. Thực hành lập trình REST API tính chỉ số BMI để ôn tập.
+3. Xây dựng mô hình Model ứng dụng VinCinema: chọn cấu trúc dữ liệu nào phù hợp để lưu Reservation.
+4. Giới thiệu dịch vụ reduce size file ảnh jpeg, png --> webp để giảm dung lượng ổ cứng.
+
+
+
+
 

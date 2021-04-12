@@ -1,4 +1,4 @@
-# Mô hình dịch vụ đặt - mua vé xem phim ở cụm rạp VinCinema
+# Mô hình dịch vụ đặt - mua vé xem phim ở cụm rạp VCinema
 
 Tập đoàn V quyết định mua lại toàn bộ các rạp chiếu phim của CGV và xây dựng hệ thống đặt - mua vé xem phim qua mạng (web site và ứng dụng di động).
 
