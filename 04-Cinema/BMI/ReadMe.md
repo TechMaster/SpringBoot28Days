@@ -20,7 +20,7 @@ Nhân sự kiện Zalo AI 2020 ra mắt ứng dụng trợ lý Kiki, trong khoá
 2. Code để chạy được những chức năng chính căn bản, tiếp tục cho khách hàng xem lấy ý kiến.
 3. Refactor code để dễ mở rộng, dễ bảo trì
 4. Dự án gia công thường giới hạn về thời gian và chi phí. Nếu khách hàng yêu cầu,bổ xung phần kiểm thử End to End Testing. Tôi thường không viết Unit Test vì các dự án khá gấp gáp, chức năng liên tục thay đổi.
-5. Nếu team code lập trình viên DevOps thì nên cấu hình CI/CD ngay từ đầu để kiểm thử trên môi trường development 
+5. Nếu team code lập trình viên DevOps thì nên cấu hình CI/CD ngay từ đầu để kiểm thử trên môi trường development
 
 # Các bước thực hành
 
