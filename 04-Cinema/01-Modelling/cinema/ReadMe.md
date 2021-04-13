@@ -55,3 +55,28 @@ Chúng ta sẽ tạo ra một Scheduled Task, cứ khoảng 0.5 giây sẽ quét
 - [ConcurrentHashMap in Java](https://www.geeksforgeeks.org/concurrenthashmap-in-java/)
 - [Race Conditions and Critical Sections](http://tutorials.jenkov.com/java-concurrency/race-conditions-and-critical-sections.html)
 - [Java Synchronization Tutorial Part 1 - The Problems of Unsynchronized Code](https://www.codejava.net/java-core/concurrency/java-synchronization-tutorial-part-1-the-problems-of-unsynchronized-code)
+
+## Bài tập
+1. Vào trang https://cgv.vn xem ứng dụng thật
+2. Chọn 2 thành phố, mỗi thành phố 3 rạp
+3. Chọn 3 phim đang chiếu
+4. Chọn 2 phim sắp chiếu
+
+
+## Team: 
+
+### Team số 1:
+- Lead: Hằng
+- Nhật
+- Long
+
+### Team số 2:
+- Lead: Tân
+- Ngọc
+- Đông
+
+### Team số 3:
+- Lead: Huy
+- Sơn
+- Đức
+- Tuấn Anh
