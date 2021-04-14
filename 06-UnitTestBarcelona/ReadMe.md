@@ -33,9 +33,10 @@ Trả về lỗi 400 trong những trường hợp sau đây. Chú ý phải tr�
   ```json
   {
     "message" : "Invalid team pattern",
-    "detail": "x is not a number or invalid" //hãy ghi rõ gía trị của x
+    "detail": "x is not a number or invalid"
   }
   ```
+  hãy ghi rõ giá trị của ```x``` trong trường detail.
 2. Tổng x + y + z không bằng 10
   ```json
   {
