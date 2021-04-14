@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class CheckExcept {
-  /* Cannot compile because throws Exception required
+  /* Cannot compile because throws Exception required 
   public void readAFile1(String fileName) {
     FileReader file = new FileReader(fileName);
     BufferedReader fileInput = new BufferedReader(file);
@@ -14,8 +14,8 @@ public class CheckExcept {
         System.out.println(fileInput.readLine());
       
     fileInput.close();
-  }
-  */
+  }*/
+
 
   public void readAFileBetter(String fileName) throws IOException {
     FileReader file = new FileReader(fileName);

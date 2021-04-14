@@ -51,7 +51,11 @@ Hãy tạo Github repo, push code lên, giải thích chi tiết từng bước 
 3. Xây dựng mô hình Model ứng dụng VinCinema: chọn cấu trúc dữ liệu nào phù hợp để lưu Reservation.
 4. Giới thiệu dịch vụ reduce size file ảnh jpeg, png --> webp để giảm dung lượng ổ cứng.
 
-
+## 05: Exception Handling
+1. Đọc chapter 12 trong quyển sách "Introduction to Java" của Daniel Lang
+2. Giải thích Check vs Uncheck Exception
+3. Tân hỏi làm sao bắt được nhiều exception trong một hàm ```@ExceptionHandler({ BMILogicException.class, BMIException.class})```
+4. 
 
 
 

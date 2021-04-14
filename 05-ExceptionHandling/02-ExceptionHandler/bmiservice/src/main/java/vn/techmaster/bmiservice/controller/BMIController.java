@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.techmaster.bmiservice.exception.APIError;
 import vn.techmaster.bmiservice.exception.BMIException;
+import vn.techmaster.bmiservice.exception.BMILogicException;
 import vn.techmaster.bmiservice.request.BMIRequest;
 import vn.techmaster.bmiservice.response.BMIResult;
 import vn.techmaster.bmiservice.service.HealthService;
@@ -68,13 +69,24 @@ public class BMIController {
     if (fheight < 0 || fweight < 0) {
       throw new BMIException("weight or height is negative");
     }
+
+    if (fheight > 2.8) {
+      throw new BMILogicException(fheight + " is too high");
+    }
+
     BMIRequest bmiRequest = new BMIRequest(fheight, fweight);
     return ResponseEntity.ok(healthService.calculateBMI(bmiRequest));
   }
 
   
   @ExceptionHandler({ BMIException.class })
-  public ResponseEntity<APIError> handleException(BMIException ex) {
+  public ResponseEntity<APIError> handleException(BMIException ex, BMILogicException ex2) {
+    System.out.println(ex2.getMessage());
     return ResponseEntity.badRequest().body(new APIError("Lỗi hàm tính BMI", ex.getMessage()));
+  }
+
+  @ExceptionHandler({ BMILogicException.class })
+  public ResponseEntity<APIError> handleException2(BMILogicException ex) {
+    return ResponseEntity.badRequest().body(new APIError("Logic tính BMI sai", ex.getMessage()));
   }
 }

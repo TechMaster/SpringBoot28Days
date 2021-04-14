@@ -24,7 +24,7 @@ public class DoctorController {
     if (oDoctor.isPresent()) {
       return ResponseEntity.ok(oDoctor.get());
     } else {
-      throw new RecordNotFoundException(id + " is not found in doctor repository");
+      throw new RecordNotFoundException(id + " is not found", "doctor");
     }
   }
 
@@ -34,7 +34,7 @@ public class DoctorController {
     if (!foundDoctors.isEmpty()) {
       return ResponseEntity.ok(foundDoctors);
     } else {
-      throw new RecordNotFoundException(skill + " is not found in doctor repository");
+      throw new RecordNotFoundException(skill + " is not found", "doctor");
     }
   }
 }

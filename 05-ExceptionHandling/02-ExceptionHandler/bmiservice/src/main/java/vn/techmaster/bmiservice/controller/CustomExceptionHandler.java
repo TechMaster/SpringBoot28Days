@@ -28,7 +28,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
   
   @ExceptionHandler(RecordNotFoundException.class)
   public final ResponseEntity<APIError> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
-    APIError apiError = new APIError("Record Not Found", ex.getLocalizedMessage(), "additional explanation", "and root cause");
+    APIError apiError = new APIError("Record Not Found", ex.getLocalizedMessage(), ex.getModel(), "Google Cloud : 122.222.11.105");
     return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
   }
   

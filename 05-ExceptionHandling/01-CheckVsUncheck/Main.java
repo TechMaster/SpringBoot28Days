@@ -17,7 +17,7 @@ public class Main {
 
     checkExcept.readAFileNotThrow("./main.java2");
     try {
-      checkExcept.getAClass("UncheckExcept");
+      checkExcept.getAClass("UncheckExcept2");
     } catch (ClassNotFoundException e) {
       System.out.println(e.getMessage());
     }
@@ -28,11 +28,11 @@ public class Main {
     UncheckExcept uncheck = new UncheckExcept();
     //uncheck.setWeight(-2);
     //uncheck.divide(10, 0);
-    try {
+    //try {
       var arrStr = new ArrayList<>(List.of("One", "Two", "Three"));
       var item = arrStr.get(4);
-    } catch (IndexOutOfBoundsException ex) {
-      System.out.println(ex.getMessage());
-    }
+   // } catch (IndexOutOfBoundsException ex) {
+   //   System.out.println(ex.getMessage());
+    //}
   }
 }
