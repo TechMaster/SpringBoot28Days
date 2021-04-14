@@ -1,0 +1,65 @@
+{
+  "GK": [
+    {
+      "name": "Neto",
+      "number": 12,
+      "position": "GK"
+    }
+  ],
+  "DF": [
+    {
+      "name": "Sergiño Dest",
+      "number": 2,
+      "position": "DF"
+    },
+    {
+      "name": "Ronald Araújo",
+      "number": 4,
+      "position": "DF"
+    },
+    {
+      "name": "Clément Lenglet",
+      "number": 13,
+      "position": "DF"
+    },
+    {
+      "name": "Junior Firpo",
+      "number": 22,
+      "position": "DF"
+    }
+  ],
+  "MF": [
+    {
+      "name": "Riqui Puig",
+      "number": 11,
+      "position": "MF"
+    },
+    {
+      "name": "Matheus Fernandes",
+      "number": 17,
+      "position": "MF"
+    },
+    {
+      "name": "Sergio Busquets",
+      "number": 5,
+      "position": "MF"
+    },
+    {
+      "name": "Miralem Pjanić",
+      "number": 7,
+      "position": "MF"
+    }
+  ],
+  "FW": [
+    {
+      "name": "Ousmane Dembélé",
+      "number": 10,
+      "position": "FW"
+    },
+    {
+      "name": "Martin Braithwaite",
+      "number": 8,
+      "position": "FW"
+    }
+  ]
+}

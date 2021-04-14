@@ -53,9 +53,10 @@ Hãy tạo Github repo, push code lên, giải thích chi tiết từng bước 
 
 ## 05: Exception Handling
 1. Đọc chapter 12 trong quyển sách "Introduction to Java" của Daniel Lang
-2. Giải thích Check vs Uncheck Exception
+2. Giải thích Check vs Uncheck Exception (RuntimeException)
 3. Tân hỏi làm sao bắt được nhiều exception trong một hàm ```@ExceptionHandler({ BMILogicException.class, BMIException.class})```
-4. 
+4. Demo, hướng dẫn phương pháp bắt Exception cục bộ trong một RestController và trong cả một dự án. Cách trả về thông báo lỗi đẹp định dạng JSON.
+5. Yêu cầu các sinh viên bổ xung Exception Handling vào dự án Barcelona của anh Tân, làm ngay tại lớp để kiểm tra kỹ năng code.
+6. Chưa làm được "Hướng dẫn mô hình dự án VinCinema" vì sinh viên code lâu quá.
 
-
-
+## 06: Viết Unit Test tự động để kết nối vào REST API Barcelona team tự động kiểm thử.
