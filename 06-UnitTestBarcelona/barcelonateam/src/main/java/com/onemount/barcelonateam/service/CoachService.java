@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CoachService {
+    static final String TEAM_PATTERN = "442";
+
     //Hãy tạo method chọn team
     //Chọn ngẫu nhiên cho từng vị trí
     @Autowired
@@ -28,26 +30,78 @@ public class CoachService {
         substituteHistory = new ArrayList<>();
     }
 
+    public Set<Player> getCurrentTeam(){
+        if (currentTeam.isEmpty()){
+            return chooseTeam();
+        }
+        return currentTeam;
+    }
 
-    // team pattern: 442, 4321
-    public Set<Player> chooseTeam(String teamPattern) throws TeamException {
+    public Map<String, Set<Player>> getTeamGroupByPosition() {
+        if (currentTeam.isEmpty()){
+           chooseTeam();
+        }
+        HashMap<String, Set<Player>> result = new HashMap<>();
+        
+        Set<Player> goalKeeper = currentTeam
+            .stream()
+            .filter(p -> p.getPosition() == Position.GK)
+            .collect(Collectors.toSet());
+
+        result.put("GK", goalKeeper);
+
+        Set<Player> defenders = currentTeam
+            .stream()
+            .filter(p -> p.getPosition() == Position.DF)
+            .collect(Collectors.toSet());
+        result.put("DF", defenders);
+
+        Set<Player> midfielders = currentTeam
+        .stream()
+        .filter(p -> p.getPosition() == Position.MF)
+        .collect(Collectors.toSet());
+        result.put("MF", midfielders);
+
+
+        Set<Player> forwarders = currentTeam
+        .stream()
+        .filter(p -> p.getPosition() == Position.FW)
+        .collect(Collectors.toSet());
+        result.put("FW", forwarders);
+
+        return result;
+    }
+
+    public Set<Player> chooseTeam() throws TeamException {        
+        return chooseTeam(TEAM_PATTERN);
+    }
+
+    // team pattern: 442, 432
+    public Set<Player> chooseTeam(String teamPattern){
         currentTeam.clear();
-        if (teamPattern.length() < 3 || teamPattern.length() > 4)
-            throw new TeamException("Pattern is invalid.");
-
-        int gkNum = 1; // always
-        int dfNum = Integer.parseInt(teamPattern.substring(0, 1)); // first char
-        int mfNum = 1; // second + third
-        int fwNum = Integer.parseInt(teamPattern.substring(teamPattern.length() - 1)); // last char
-
-        if (teamPattern.length() == 4) {
-            mfNum = Integer.parseInt(teamPattern.substring(1, 2)) + Integer.parseInt(teamPattern.substring(2, 1));
-        } else {
-            mfNum = Integer.parseInt(teamPattern.substring(1, 2));
+        substituteHistory.clear();
+        
+        if (teamPattern.length() != 3){
+            throw new TeamException("Pattern is invalid", new Throwable(teamPattern));
         }
 
-        if (gkNum + dfNum + mfNum + fwNum != 11)
-            throw new TeamException("Total number of player is not 11");
+        int gkNum = 1; // always one goal keeper
+        int dfNum = 0;
+        int mfNum = 0;
+        int fwNum = 0;
+
+        try {
+            dfNum = Integer.parseInt(teamPattern.substring(0, 1)); // first char
+            mfNum = Integer.parseInt(teamPattern.substring(1, 2)); // second
+            fwNum = Integer.parseInt(teamPattern.substring(2, 3)); // third char       
+        } catch (NumberFormatException e) {
+            throw new TeamException("Invalid number format in team pattern", e);
+        }
+
+        if (gkNum + dfNum + mfNum + fwNum != 11) {
+            throw new TeamException("Total number of players is not 11", 
+            new Throwable(dfNum + " + " + mfNum + " + " + fwNum + " must be 10"));
+        }
 
         List<Player> selectedGk = getPlayers(playerRepository.getPlayers(Position.GK), gkNum);
         List<Player> selectedDf = getPlayers(playerRepository.getPlayers(Position.DF), dfNum);
@@ -62,13 +116,11 @@ public class CoachService {
         return currentTeam;
     }
 
-    private int convertToInt(String num){
-        return -1;
-    }
+
 
     private List<Player> getPlayers(List<Player> playerList, int num) {
         if (num > playerList.size())
-            throw new IllegalArgumentException("Number of selected player must be smaller than total players");
+            throw new TeamException("Request players more than available", new Throwable("Requested: " + num + ", available: " + playerList.size()));
         List<Player> players = new ArrayList<>();
         Random rand = new Random();
         while (num > 0) {
@@ -82,9 +134,7 @@ public class CoachService {
         return players;
     }
 
-    public Set<Player> chooseTeam() throws TeamException {
-        return chooseTeam("442");
-    }
+    
 
     /**
      * Rule:
@@ -104,15 +154,15 @@ public class CoachService {
      * - Số áo cầu thủ không tồn tại
      * - Số áo cầu thủ không đá trên sân
      */
-    public TeamStatus subtitute(int playerNo, Position position) throws TeamException {
+    public TeamStatus subtitute(int playerNo, Position position){
         // Đã chọn xong danh sách cầu thủ
-        if (currentTeam == null || currentTeam.size() != 11) {
+        if (currentTeam.size() != 11) {
             throw new TeamException("Team must be made first");
         }
 
         // check maximum of sub
-        if (substituteHistory == null || substituteHistory.size() == 5) {
-            throw new TeamException("Team must be made first");
+        if (substituteHistory.size() == 5) {
+            throw new TeamException("Number of substitutions has reached 5");
         }
 
         // check player with playNo is playing
@@ -120,14 +170,15 @@ public class CoachService {
                 .filter(p -> p.getNumber() == playerNo)
                 .findAny()
                 .orElse(null);
+
         if (outPlayer == null) {
-            throw new TeamException("Player with number " + playerNo + " is not playing or invalid");
+            throw new TeamException("No current player with that number", new Throwable("" +  playerNo));
         }
 
         List<Player> availablePlayerForSub = getAvailablePlayers(playerNo, position);
 
         if (availablePlayerForSub.isEmpty()) {
-            throw new TeamException("There is no player available for substitute");
+            throw new TeamException("No player is available for this position", new Throwable(position.toString()));
         }
 
         Random random = new Random();
@@ -136,10 +187,9 @@ public class CoachService {
         currentTeam.remove(outPlayer);
         currentTeam.add(inPlayer);
 
-        TeamStatus teamsStatus = new TeamStatus();
-        teamsStatus.setCurrentTeam(currentTeam);
-        teamsStatus.setSubstituteHistory(substituteHistory);
-        return teamsStatus;
+
+        return new TeamStatus(currentTeam, substituteHistory);
+  
     }
 
     private List<Player> getAvailablePlayers(int playerNo, Position position) {

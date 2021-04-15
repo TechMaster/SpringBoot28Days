@@ -7,33 +7,39 @@ import com.onemount.barcelonateam.model.TeamStatus;
 import com.onemount.barcelonateam.service.CoachService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/public") //đường dẫn chung
 public class APIController {
     @Autowired
     private CoachService coachService;
-    //Hãy viết một API có đường dẫn
-    // http://localhost:8080/api/public/chooseteam/
-    // hãy trả về danh sách 11 cầu thủ sẽ ra sân
 
-    @GetMapping("/chooseteam")
-    public Set<Player> chooseTeam() throws TeamException {
-        return coachService.chooseTeam();
+    @GetMapping("/team")
+    public ResponseEntity<Set<Player>> getTeam() throws TeamException {
+        Set<Player> players = coachService.getCurrentTeam();
+        if (!players.isEmpty()) {
+            return ResponseEntity.ok(players);
+        } else {
+            return ResponseEntity.ok(coachService.chooseTeam());
+        }
+    }
+
+    @GetMapping("/teamgroup")
+    public ResponseEntity<Map<String, Set<Player>>> getTeamGroupByPosition() throws TeamException {
+       return ResponseEntity.ok(coachService.getTeamGroupByPosition());
     }
 
     // http://localhost:8080/api/public/chooseteam/343
     //3 hậu vệ 4 trung vệ 3 tiền đạo
     @GetMapping("/chooseteam/{pattern}")
-    public Set<Player> chooseTeam(@PathVariable("pattern") String pattern) throws TeamException {
-        return coachService.chooseTeam(pattern);
+    public ResponseEntity<Set<Player>> chooseTeam(@PathVariable("pattern") String pattern) throws TeamException {
+        return ResponseEntity.ok(coachService.chooseTeam(pattern));
     }
 
     @GetMapping("substitute/{playerNo}/{position}")
@@ -56,9 +62,7 @@ public class APIController {
      * - Số áo cầu thủ không đá trên sân
      *
      */
-    public TeamStatus substitute(@PathVariable("playerNo") int playerNo, @PathVariable("position") Position position) throws TeamException {
-
-        // check
-        return coachService.subtitute(playerNo, position);
+    public ResponseEntity<TeamStatus> substitute(@PathVariable("playerNo") int playerNo, @PathVariable("position") Position position) throws TeamException {
+        return ResponseEntity.ok(coachService.subtitute(playerNo, position));
     }
 }
