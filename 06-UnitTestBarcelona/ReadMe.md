@@ -6,8 +6,14 @@ Lớp mình có 10 sinh viên. Buổi tới cả 10 bạn sẽ phải nộp bài
 
 Các bạn hãy lập trình đúng các REST API End Point như mô tả dưới đây. Tôi sẽ viết phần mềm để kiểm thử tự động. Giả thiết laptop của bạn ở địa chỉ 192.168.1.17. Ứng dụng Spring Boot lắng nghe ở cổng 8080. Các REST End Point sẽ có dạng ```http://192.168.1.17:8080/chooseteam```
 
-## Yêu cầu API End Point
+## Tham khảo một số file code mẫu
 
+1. [TeamException.java](samples/TeamException.java) Custom runtime exception
+2. [APIError.java](samples/APIError.java) class đóng gói lỗi trả về qua REST
+3. [APIException.java](samples/APIException.java) custome runtime exception sẽ hứng khi WebClient gọi lên REST API
+4. [CustomExceptionHandler.java](samples/CustomExceptionHandler.java) chuyên để bắt ngoại lệ phát sinh ở REST Controller
+
+## Yêu cầu API End Point
 
 ### 1. ```GET /team``` trả về danh sách 11 cầu thủ trong đội hình.
 Không yêu cầu sắp xếp theo bất kỳ tiêu chí gì mà chỉ cần trả về đủ 11 cầu thủ.
