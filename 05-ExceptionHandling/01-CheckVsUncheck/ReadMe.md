@@ -129,6 +129,76 @@ try {
 }
 ```
 
+## 3. Throws Exception - Unwind calling stack
+
+Xem ví dụ [ChernobylDisaster.java](ChernobylDisaster.java) và [Building.java](Building.java) để hiểu cơ chế ném ngoại lệ từng tầng cao nhất của calling stack (ngắn xếp các lời gọi hàm) xuống tầng thấp dần.
+```
+Chernobyl in Ukraina
+A radiator in Chernobyl
+Suddenly a machine set fire
+FireException: Machine XYZ set fire!
+        at ChernobylDisaster.runRadiator(ChernobylDisaster.java:18)
+        at ChernobylDisaster.runChernobyl(ChernobylDisaster.java:13)
+        at ChernobylDisaster.runUkraine(ChernobylDisaster.java:8)
+        at Main.demoChernobyl(Main.java:42)
+        at Main.main(Main.java:54)
+```
+
+Báo lỗi calling stack của một RuntimeException cũng giống như checkException.
+
+```
+Building opens
+Staff open doors
+A snake enters building and bites a staff
+Exception in thread "main" SnakeBiteException: It bites a staff
+        at Building.letEverythingEnter(Building.java:14)
+        at Building.openDoors(Building.java:9)
+        at Building.openABuilding(Building.java:4)
+        at Main.snakeEnterBuilding(Main.java:50)
+        at Main.main(Main.java:55)
+```
+
+Khác biệt giữa [FireException.java](FireException.java) và [SnakeBiteException.java](SnakeBiteException.java) đó là tất cả phương thức gọi đến phương thức ném CheckException đều phải khai báo ```throws Exception```:
+
+```java
+public class ChernobylDisaster {
+  public void runUkraine() throws FireException {
+    System.out.println("Chernobyl in Ukraina");
+    runChernobyl();
+  } 
+
+  public void runChernobyl() throws FireException{
+    System.out.println("A radiator in Chernobyl");
+    runRadiator();
+  }
+
+  public void runRadiator() throws FireException {
+    System.out.println("Suddenly a machine set fire");
+    throw new FireException("Machine XYZ set fire!");
+  }
+}
+```
+Phương thức gọi đến phương thức ném Uncheck Exception thì không cần khai báo ```throws Exception```
+```java
+public class Building {
+  public void openABuilding() {
+    System.out.println("Building opens");
+    openDoors();
+  }
+
+  public void openDoors() {
+    System.out.println("Staff open doors");
+    letEverythingEnter();
+  }
+
+  public void letEverythingEnter() {
+    System.out.println("A snake enters building and bites a staff");
+    throw new SnakeBiteException("It bites a staff");
+  }
+}
+```
+
+
 
 ## Tham khảo
 - [Java Checked and Unchecked Exceptions](https://www.codejava.net/java-core/exception/java-checked-and-unchecked-exceptions)
