@@ -37,7 +37,7 @@ xyz là tham số mô tả:
 
 Trả về lỗi 400 (BadRequest) trong những trường hợp sau đây. Chú ý phải trả về đúng từng ký tự theo yêu cầu thiết kế thì phần mềm mới tự động kiểm tra được.
 
-1. x không phải chữ số, hoặc bằng 0. Làm tương tự với y, z
+1. x không phải chữ số. Làm tương tự với y, z
   ```json
   {
     "message" : "TeamException : Invalid number format in team pattern",

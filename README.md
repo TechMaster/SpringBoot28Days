@@ -60,3 +60,10 @@ Hãy tạo Github repo, push code lên, giải thích chi tiết từng bước 
 6. Chưa làm được "Hướng dẫn mô hình dự án VinCinema" vì sinh viên code lâu quá.
 
 ## 06: Viết Unit Test tự động để kết nối vào REST API Barcelona team tự động kiểm thử.
+1. Ôn lại throw exception cho Check và Uncheck Exception. Khái niệm unwinding calling stack.
+2. Thống nhất viết REST API cho Barcelona Team dựa theo mẫu của anh Tân.
+3. Nhắc lại viết @RestControllerAdvice để trả về lỗi đẹp hơn bằng JSON
+4. Làm quen với JUnit 5 và AssertJ
+5. Làm quen với WebFlux WebClient để kiểm thử REST API.
+
+Sinh viên vào muộn 8:17 mới có anh Tân, anh Đông, chị Hằng, chị Ngọc đến

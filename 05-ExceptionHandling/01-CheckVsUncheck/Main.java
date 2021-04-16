@@ -51,7 +51,7 @@ public class Main {
   }
   public static void main(String[] args) {
     //checkVsUncheck();
-    demoChernobyl();
-    //snakeEnterBuilding();
+    //demoChernobyl();
+    snakeEnterBuilding();
   }
 }
