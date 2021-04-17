@@ -64,6 +64,17 @@ Hãy tạo Github repo, push code lên, giải thích chi tiết từng bước 
 2. Thống nhất viết REST API cho Barcelona Team dựa theo mẫu của anh Tân.
 3. Nhắc lại viết @RestControllerAdvice để trả về lỗi đẹp hơn bằng JSON
 4. Làm quen với JUnit 5 và AssertJ
-5. Làm quen với WebFlux WebClient để kiểm thử REST API.
+5. Làm quen với WebFlux WebClient để kiểm thử REST API. Buổi sau sẽ thực hành chi tiết
 
-Sinh viên vào muộn 8:17 mới có anh Tân, anh Đông, chị Hằng, chị Ngọc đến
+Sinh viên vào muộn 8:17 mới có anh Tân, anh Đông, chị Hằng, chị Ngọc đến. Có vài anh nghỉ không xin phép.
+Kết quả bài tập tạo REST API:
+- Tân: 100%
+- Hằng: 100%
+- Huy: 100%
+- Tuấn Anh: 60%
+- Đông làm được khoảng 60%. Nhưng máy Windows bị chặn firewall không test được.
+
+## 07: POST, PUT, DELETE, PATCH
+
+## 08: Serialize - Deserialize binary format
+https://github.com/EsotericSoftware/kryo

@@ -31,7 +31,7 @@ import reactor.core.publisher.Mono;
 
 
 @TestInstance(Lifecycle.PER_CLASS)
-class BarcelonateamApplicationTests {
+class WebFluxClientTest {
 	private WebClient webClient;
 	@BeforeAll
 	void buildWebClient() {
