@@ -14,7 +14,7 @@
 	<name>webdocker</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>16</java.version>
+		<java.version>15</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -45,7 +45,7 @@
         <version>3.0.0</version>
         <configuration>
 					<from>
-						<image>openjdk:buster</image>
+						<image>openjdk:17-jdk-alpine3.13</image>
 					</from>
 					<to>
 						<image>minhcuong/webdocker</image>
