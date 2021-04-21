@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+  <Properties>
+    <Property name="path">logs</Property>
+  </Properties>
+  <Appenders>
+    <Console name="Console-Appender" target="SYSTEM_OUT">
+      <PatternLayout>
+        <pattern>
+          %highlight{%-5p (%c{1}:%L) - %m%n%throwable}{FATAL=white, ERROR=red, WARN=yellow, INFO=grey, DEBUG=green, TRACE=Cyan}
+        </pattern>
+      </PatternLayout>
+    </Console>
+    <File name="App-File-Appender" fileName="${path}/app.log">
+      <PatternLayout>
+        <pattern>
+          [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+        </pattern>
+      </PatternLayout>
+    </File>
+    <File name="UnitTest-File-Appender" fileName="${path}/unittest.log">
+      <PatternLayout>
+        <pattern>
+          [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+        </pattern>
+      </PatternLayout>
+    </File>
+    <File name="SpringBoot-File-Appender" fileName="${path}/springboot.log">
+      <PatternLayout>
+        <pattern>
+          [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+        </pattern>
+      </PatternLayout>
+    </File>
+  </Appenders>
+  <Loggers>
+    <Logger name="org.springframework.web" level="debug" additivity="false">
+      <AppenderRef ref="SpringBoot-File-Appender" />
+      <AppenderRef ref="Console-Appender" />
+    </Logger>
+    <Logger name="vn.techmaster" level="debug" additivity="false">
+      <AppenderRef ref="App-File-Appender" />
+      <AppenderRef ref="Console-Appender" />
+    </Logger>
+    <Logger name="vn.techmaster.bookstore.FeignTest" level="debug" additivity="false">
+      <AppenderRef ref="UnitTest-File-Appender" />
+    </Logger>
+    <Root level="info" additivity="false">
+      <AppenderRef ref="Console-Appender" />
+    </Root>
+  </Loggers>
+</Configuration>
