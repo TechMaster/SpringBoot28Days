@@ -1,6 +1,6 @@
 Ví dụ lập trình này để minh hoạ cho bài viết [HTTP Methods in Spring RESTful Services](https://www.dariawan.com/tutorials/rest/http-methods-spring-restful-services/). Hãy đọc kỹ bài này. Viết tiếng Anh rất trong sáng rồi, dịch lại sợ không kỹ bằng tác giả. Tôi chỉ lập trình ví dụ để các bạn chạy thử nghiệm luôn.
 
-## Cấu trúc dự án
+## 1. Cấu trúc dự án
 ```
 .
 ├── main
@@ -23,6 +23,21 @@ Ví dụ lập trình này để minh hoạ cho bài viết [HTTP Methods in Spr
 │       ├── application.properties
 │       └── book.sql <-- File sql nạp một số bản ghi ban đầu
 ```
+
+## 2. Cấu hình kết nối CSDL in memory SQL database H2
+Bổ xung những dòng này vào file [application.properties](src/main/resources/application.properties)
+```
+spring.datasource.url=jdbc:h2:mem:test
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=123
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.jpa.properties.hibernate.hbm2ddl.import_files=book.sql
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.format_sql=false
+```
+## 3. Định nghĩa Entity
 [Book.java](src/main/java/vn/techmaster/bookstore/model/Book.java)
 ```java
 @Entity(name = "book")
@@ -46,9 +61,26 @@ public class Book {
   }
 }
 ```
+## 4.  Nạp dữ liệu vào H2 khi app khởi động
+Tạo file [book.sql](src/main/resources/book.sql) trong thư mục resource.
+```sql
+INSERT INTO book(title, author) VALUES('Ulysses', 'James Joyce');
+INSERT INTO book(title, author) VALUES('The Great Gatsby', 'F. Scott Fitzgerald');
+INSERT INTO book(title, author) VALUES('Brave New World', 'Aldous Huxley');
+INSERT INTO book(title, author) VALUES('1984', 'George Orwell');
+INSERT INTO book(title, author) VALUES('Tobacco Road', 'Erskine Caldwell');
+INSERT INTO book(title, author) VALUES('Midnight’s Children', 'Salman Rushdie');
+```
 
+Dòng dưới trong [application.properties](src/main/resources/application.properties) thực hiện nạp dữ liệu từ book.sql vào H2
+```
+spring.jpa.properties.hibernate.hbm2ddl.import_files=book.sql
+```
+
+
+## 5. Thiết kế class BookPOJO
 [BookPOJO.java](src/main/java/vn/techmaster/bookstore/model/BookPOJO.java)
-Ở mỗi trường, có constrain annotation ```@Size```, xem [Hibernate_Validator.md](Hibernate_Validator.md) để biết thêm cơ chế kiểm tra dữ liệu.
+Ở mỗi trường, có constrain annotation ```@Size```, xem [Hibernate_Validator.md](Hibernate_Validator.md) để biết thêm cơ chế kiểm tra dữ liệu. Dễ dàng thấy BookPOJO không có thuộc tính id
 ```java
 @Data
 @AllArgsConstructor
@@ -61,8 +93,7 @@ public class BookPOJO {
   public String author;
 }
 ```
-
-[APIController.java](src/main/java/vn/techmaster/bookstore/controller/APIController.java)
+## 6. Tạo [APIController.java](src/main/java/vn/techmaster/bookstore/controller/APIController.java)
 ```java
 @RestController  //Đánh dấu đây là REST API
 
@@ -74,7 +105,7 @@ public class APIController {
 }
 ```
 
-### GET danh sách toàn bộ Book
+### 6.1 GET danh sách toàn bộ Book
 Lấy danh sách các books. Lệnh này gọi nhiều lần, nhưng sẽ không thay đổi dữ liệu vì nó chỉ đọc. Gọi là Idempotent methods.
 [APIController.java](src/main/java/vn/techmaster/bookstore/controller/APIController.java)
 ```java
@@ -101,7 +132,7 @@ $ curl -X GET "http://localhost:8080/api/books"
 Sử dụng công cụ PostMan, lựa chọn GET
 ![](images/GET.jpg)
 
-### GET by id
+### 6.2 GET by id
 Tìm sách theo id cụ thể nếu thành công thì trả về mã 200, còn không tìm thấy trả về lỗi 404
 
 [APIController.java](src/main/java/vn/techmaster/bookstore/controller/APIController.java)
@@ -125,7 +156,7 @@ public Optional<Book> findById(Long id) {
 ```
 ![](images/GET_by_Id.jpg)
 
-### POST
+### 6.3 POST
 Tạo mới bản ghi book. Mỗi lần gọi lại tạo ra bản ghi mới, dữ liệu trên server không còn đồng nhất. Đây là inidempotent method
 ```java
 @PostMapping("/books")
@@ -148,7 +179,7 @@ public Book save(BookPOJO book) {
 ```
 ![](images/POST.jpg)
 
-### PUT cập nhật hầu hết hoặc bất kỳ trường nào
+### 6.4 PUT cập nhật hầu hết hoặc bất kỳ trường nào
 
 Để sửa đổi toàn bộ, thay thế bản ghi. Hoặc không rõ sửa trường nào, thì gửi đối tượng chứa đủ các trường dữ liệu lên server
 
@@ -180,7 +211,7 @@ public Book update(long id, BookPOJO book) {
 
 ![](images/PUT.jpg)
 
-## PATCH chỉ sửa một hoặc vài trường cụ thể
+## 6.5 PATCH chỉ sửa một hoặc vài trường cụ thể
 
 ```java
 @PatchMapping("/books/{bookId}")
@@ -208,7 +239,7 @@ public void updateTitle(long id, String title) {
 
 ![](images/PATCH.jpg)
 
-## DELETE
+## 6.6 DELETE
 
 ```java
 @DeleteMapping(path = "/books/{bookId}")
