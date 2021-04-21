@@ -69,10 +69,11 @@ public class BookService implements IBookService {
 
   @Override
   public Book update(long id, BookPOJO book) {
-    validateBook(book);
-    Book updatedBook = new Book(id, book.getTitle(), book.getAuthor());
+    validateBook(book);    
     Optional<Book> optionalBook = bookRepo.findById(id);
+    
     if (optionalBook.isPresent()) {
+      Book updatedBook = new Book(id, book.getTitle(), book.getAuthor());
       bookRepo.save(updatedBook);
       return updatedBook;
     } else {

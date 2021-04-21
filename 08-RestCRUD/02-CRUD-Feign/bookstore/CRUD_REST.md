@@ -11,17 +11,17 @@ Ví dụ lập trình này để minh hoạ cho bài viết [HTTP Methods in Spr
 │   │               ├── controller
 │   │               │   └── APIController.java  <-- Tạo REST API
 │   │               ├── model
-│   │               │   ├── Book.java
-│   │               │   └── BookPOJO.java
+│   │               │   ├── Book.java <-- Định nghĩa Entity ánh xạ vào bảng trong CSDL
+│   │               │   └── BookPOJO.java <-- Class đơn giản chứa vừa đủ các trường client gửi lên
 │   │               ├── repository
-│   │               │   └── BookRespository.java
+│   │               │   └── BookRespository.java <-- Interface kế thừa JPA
 │   │               ├── service
-│   │               │   ├── BookService.java
+│   │               │   ├── BookService.java <-- Dịch vụ Book
 │   │               │   └── IBookService.java
 │   │               └── BookstoreApplication.java
 │   └── resources
 │       ├── application.properties
-│       └── book.sql
+│       └── book.sql <-- File sql nạp một số bản ghi ban đầu
 ```
 [Book.java](src/main/java/vn/techmaster/bookstore/model/Book.java)
 ```java
@@ -44,6 +44,21 @@ public class Book {
     this.title = title;
     this.author = author;
   }
+}
+```
+
+[BookPOJO.java](src/main/java/vn/techmaster/bookstore/model/BookPOJO.java)
+Ở mỗi trường, có constrain annotation ```@Size```, xem [Hibernate_Validator.md](Hibernate_Validator.md) để biết thêm cơ chế kiểm tra dữ liệu.
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class BookPOJO {
+  @Size(min = 2, max = 200, message = "title's length must be between 2 and 200")
+  public String title;
+
+  @Size(min = 2, max = 100, message = "author's length must be between 2 and 100")
+  public String author;
 }
 ```
 
@@ -139,26 +154,27 @@ public Book save(BookPOJO book) {
 
 ```java
 @PutMapping("/books/{bookId}")
-public ResponseEntity<Void> updateBook(@RequestBody BookPOJO book, @PathVariable long bookId) {
-  try {        
-    bookService.update(bookId, book);
-    return ResponseEntity.ok().build();
-  } catch (ResourceNotFoundException ex) {         
-    return ResponseEntity.notFound().build();
-  } 
+public ResponseEntity<Book> updateBook(@RequestBody BookPOJO book, @PathVariable long bookId) {   
+  Book updatedBook = bookService.update(bookId, book);
+  return ResponseEntity.ok().body(updatedBook);    
 }
 ```
 
+Phía [BookService.java](src/main/java/vn/techmaster/bookstore/service/BookService.java)
 ```java
 @Override
-public void update(long id, BookPOJO book) {
-  Book updatedBook = new Book(id, book.getTitle(), book.getAuthor());
+public Book update(long id, BookPOJO book) {
+  validateBook(book);  
   Optional<Book> optionalBook = bookRepo.findById(id);
   if (optionalBook.isPresent()) {
+    Book updatedBook = new Book(id, book.getTitle(), book.getAuthor());
     bookRepo.save(updatedBook);
+    return updatedBook;
   } else {
-    throw new ResourceNotFoundException();
-  }    
+    throw new BookStoreException("Cannot update a book", 
+    new Throwable(String.format(BOOK_ID_NOT_EXIST, id)), 
+    HttpStatus.NOT_FOUND);
+  }
 }
 ```
 
@@ -168,13 +184,9 @@ public void update(long id, BookPOJO book) {
 
 ```java
 @PatchMapping("/books/{bookId}")
-public ResponseEntity<Void> updateBookTitle(@RequestBody String title, @PathVariable long bookId) {
-  try {
-      bookService.updateTitle(bookId, title);
-      return ResponseEntity.ok().build();
-  } catch (ResourceNotFoundException ex) {       
-      return ResponseEntity.notFound().build();   
-  }
+public ResponseEntity<String> updateBookTitle(@RequestBody String title, @PathVariable long bookId) {   
+  bookService.updateTitle(bookId, title);
+  return ResponseEntity.ok().body(title);  //Nội dung đã thay đổi thành công  
 }
 ```
 
@@ -187,7 +199,9 @@ public void updateTitle(long id, String title) {
     book.setTitle(title);
     bookRepo.save(book);
   } else {
-    throw new ResourceNotFoundException();
+    throw new BookStoreException("Cannot update title of a book", 
+    new Throwable(String.format(BOOK_ID_NOT_EXIST, id)), 
+    HttpStatus.NOT_FOUND);
   }
 }
 ```
@@ -197,26 +211,25 @@ public void updateTitle(long id, String title) {
 ## DELETE
 
 ```java
-@DeleteMapping(path="/books/{bookId}")
-public ResponseEntity<Void> deleteBookById(@PathVariable long bookId) {
-  try {
-    bookService.deleteById(bookId);
-    return ResponseEntity.ok().build();
-  } catch (ResourceNotFoundException ex) {        
-    return ResponseEntity.notFound().build();
+@DeleteMapping(path = "/books/{bookId}")
+public ResponseEntity<Long> deleteBookById(@PathVariable long bookId) {
+  bookService.deleteById(bookId);
+  return ResponseEntity.ok(bookId);
 }
 ```
 
 ```java
 @Override
-public void deleteById(long id) {
-  Optional<Book> optionalBook = bookRepo.findById(id);
-  if (optionalBook.isPresent()) {      
-    bookRepo.delete(optionalBook.get());
-  } else {
-    throw new ResourceNotFoundException();
+  public void deleteById(long id) {
+    Optional<Book> optionalBook = bookRepo.findById(id);
+    if (optionalBook.isPresent()) {      
+      bookRepo.delete(optionalBook.get());
+    } else {
+      throw new BookStoreException("Cannot delete a book", 
+      new Throwable(String.format(BOOK_ID_NOT_EXIST, id)), 
+      HttpStatus.NOT_FOUND);
+    }
   }
-}
 ```
 
 ![](images/DELETE.jpg)
