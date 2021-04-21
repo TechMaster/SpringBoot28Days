@@ -74,7 +74,27 @@ Kết quả bài tập tạo REST API:
 - Tuấn Anh: 60%
 - Đông làm được khoảng 60%. Nhưng máy Windows bị chặn firewall không test được.
 
-## 07: POST, PUT, DELETE, PATCH
+## 07: Thay thế WebFlux WebClient bằng OpenFeign
+1. Giải thích cơ chế nhiều tầng của network: TCP/IP -> HTTP / HTTPS -> Application Layer sử dụng các định dạng JSON/XML để định dạng dữ liệu.
+2. Khác biệt giữa HTTP 2 và HTTP 1.1
+3. Giới thiệu các HTTP Client phổ biến trong Java: OkHttp, Retrofit.
+4. OpenFeign khai báo kết nối REST đến API Server bằng Annotation, có thể tuỳ chọn sử dụng HTTP Client.
+5. Thực hành viết Unit Test porting từ WebFlux Client.
+6. Team anh Tân đã gửi bài tập thiết kế mô hình Vincinema.
+7. Anh Tân chia sẻ team anh Tân sử dụng [RestAssured](https://rest-assured.io/) để kiểm thử REST API.
+
+
+**Tình hình lớp:**
+- Long xin phép nghỉ vì phải release API cùng team.
+- Sơn (Troy) nghỉ không phép.
+- Đông code được, nhưng máy quá ít RAM nên không thể biên dịch.
+- Nhật không xem kỹ bài giảng cũ, còn không biết mở một dự án Spring Boot để biên dịch.
+- Đức không xem kỹ bài giảng cũ.
+- Tuấn Anh, Ngọc mới code chập chững.
+- Anh Tân chị Hằng 2 người code tốt nhất thì lại ngồi code cùng nhau.
+- Nhìn chung sinh viên trẻ chưa chủ động mày mò xem trước, chưa hình dung ra giải pháp.
+
+
 
 ## 08: Serialize - Deserialize binary format
 https://github.com/EsotericSoftware/kryo
