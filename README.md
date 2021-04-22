@@ -96,5 +96,11 @@ Kết quả bài tập tạo REST API:
 
 
 
-## 08: Serialize - Deserialize binary format
-https://github.com/EsotericSoftware/kryo
+## 08: CRUD, JPA, H2, Exception Handling
+- Đã khởi tạo xong ứng dụng quản lý khách hàng [CRM API](https://github.com/TechMaster/SpringBoot28Days/tree/main/08-RestCRUD/03-CRM/crm)
+
+**Bài tập về nhà**
+- Xem kỹ code [BookStore](https://github.com/TechMaster/SpringBoot28Days/tree/main/08-RestCRUD/02-CRUD-Feign/bookstore)
+
+**Tình hình lớp:**
+- Anh Huy xin nghỉ vì đi học lớp BigData
