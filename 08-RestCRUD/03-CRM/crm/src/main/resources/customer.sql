@@ -1,0 +1,2 @@
+INSERT INTO customer(fullname, email, mobile) VALUES('Trịnh Minh Cường', 'cuong@techmaster.vn', '0902209011');
+INSERT INTO customer(fullname, email, mobile) VALUES('Đào Văn Dũng', 'đungdv@techmaster.vn', '0903309015');
