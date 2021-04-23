@@ -104,3 +104,22 @@ Kết quả bài tập tạo REST API:
 
 **Tình hình lớp:**
 - Anh Huy xin nghỉ vì đi học lớp BigData
+
+## 09. CRUD (POST, DELETE), Object Mapper, Logger, ByteCode Manipulation
+- Thực hành bổ xung POST, DELETE
+- Giải thích tại sao lại có thêm POJO Class: vì không nên dùng Entity Class hứng request và trả về response
+- Hướng dẫn dùng [MapStruct để chuyển đổi dữ liệu giữa POJO Class và Entity Class](https://github.com/TechMaster/SpringBoot28Days/tree/main/08-RestCRUD/03-CRM/crm)
+- Hướng dẫn sử dụng Logger, cấu hình Logger ra Console, File theo Class name và Log Level.
+- Tại sao không nên dùng System.out.println để log
+- Logging (ghi hành trình) khác gì với Monitoring (giám sát liên tục)
+- Cơ chế Byte Code Manipulation giúp tạo mới class, method, property, thay đổi...
+- Demo cách Lombok sử dụng ASM Byte code
+
+**Tình hình lớp:**
+- Long xin phép nghỉ vì phải release API cùng team.
+- Sơn (Troy) nghỉ không phép.
+
+
+**Bài tập về nhà**
+- Hoàn thành toàn bộ ứng dụng [CRM](https://github.com/TechMaster/SpringBoot28Days/tree/main/08-RestCRUD/03-CRM/crm) bắt chiếc theo code của [BookStore](https://github.com/TechMaster/SpringBoot28Days/tree/main/08-RestCRUD/02-CRUD-Feign/bookstore)
+- Đọc trước về thư viện [Kryo](https://github.com/EsotericSoftware/kryo) để upload binary file

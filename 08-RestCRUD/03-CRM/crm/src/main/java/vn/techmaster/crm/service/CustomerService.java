@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import vn.techmaster.crm.exception.CRMException;
 import vn.techmaster.crm.mapper.CustomerMapper;
 import vn.techmaster.crm.model.Customer;
@@ -21,6 +22,8 @@ import vn.techmaster.crm.model.CustomerPOJO;
 import vn.techmaster.crm.repository.CustomerRepository;
 
 @Service
+
+@Slf4j
 public class CustomerService {
   @Autowired
   private CustomerRepository customerRepository;
@@ -53,11 +56,14 @@ public class CustomerService {
   private void validateCustomer(CustomerPOJO customer) {
     Set<ConstraintViolation<CustomerPOJO>> constraintViolations = validator.validate(customer);
     if (!constraintViolations.isEmpty()) {
+      String detailMessage = constraintViolations
+      .stream().map(ConstraintViolation::getMessage)
+      .collect(Collectors.joining(", "));
+
+      log.error("New customer violates constrains " + detailMessage);
+
       throw new CRMException("New customer violates constrains", 
-      new Throwable(
-        constraintViolations
-        .stream().map(ConstraintViolation::getMessage)
-        .collect(Collectors.joining(", "))),
+      new Throwable(detailMessage),
       HttpStatus.BAD_REQUEST);
     }
   }  
@@ -70,5 +76,17 @@ public class CustomerService {
     //Sử dụng MapStruct
     Customer newCustomer = CustomerMapper.INSTANCE.pojoToCustomer(customerPOJO);
     return customerRepository.save(newCustomer);
+  }
+
+  public long deleteById(long id) {
+    Optional<Customer> optionalCustomer = customerRepository.findById(id);
+    if (optionalCustomer.isPresent()) {      
+      customerRepository.delete(optionalCustomer.get());
+      return id;
+    } else {
+      throw new CRMException("Cannot delete a customer", 
+      new Throwable(String.format(CUSTOMER_ID_NOT_EXIST, id)), 
+      HttpStatus.NOT_FOUND);
+    }
   }
 }

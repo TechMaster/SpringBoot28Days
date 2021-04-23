@@ -57,7 +57,7 @@ public class APIController
 Ý nghĩa của ```@Slf4j``` tương đương thêm thuộc tính ```org.slf4j.Logger log``` vào clas
 ```java
 public class APIController {
-  private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExample.class);
+  private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(APIController.class);
 }
 ```
 
