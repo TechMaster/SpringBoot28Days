@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.techmaster.crm.model.Customer;
+import vn.techmaster.crm.model.CustomerPOJO;
 import vn.techmaster.crm.service.CustomerService;
 
 @RestController
