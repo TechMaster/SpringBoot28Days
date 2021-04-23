@@ -1,11 +1,15 @@
 package vn.techmaster.crm.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +35,16 @@ public class CustomerController {
     return ResponseEntity
       .ok()
       .body(customerService.findById(id));
+  }
+
+  @PostMapping()
+  public ResponseEntity<Customer> addBook(@RequestBody CustomerPOJO customer) {
+    Customer newCustomer = customerService.save(customer);
+    try {
+      return ResponseEntity.created(new URI("/api/customer/v1/" + newCustomer.getId())).body(newCustomer);
+    } catch (URISyntaxException e) {
+      //log.error(e.getMessage());
+      return ResponseEntity.ok().body(newCustomer);      
+    }    
   }
 }

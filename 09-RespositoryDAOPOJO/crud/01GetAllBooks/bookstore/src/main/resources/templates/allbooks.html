@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Store</title>
+</head>
+<body>
+  <ul>
+    <li th:each="book: ${books}">
+      <strong th:text="${book.title}"></strong><br>
+      <p th:text="${book.description}"></p>
+    </li>
+  </ul>
+</body>
+</html>
