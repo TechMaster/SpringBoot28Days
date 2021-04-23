@@ -39,7 +39,7 @@ public class CustomerController {
   }
 
   @PostMapping()
-  public ResponseEntity<Customer> addBook(@RequestBody CustomerPOJO customer) {
+  public ResponseEntity<Customer> addBook(@RequestBody Customer customer) {
     Customer newCustomer = customerService.save(customer);
     try {
       return ResponseEntity.created(new URI("/api/customer/v1/" + newCustomer.getId())).body(newCustomer);
