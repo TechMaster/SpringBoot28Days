@@ -112,8 +112,9 @@ Kết quả bài tập tạo REST API:
 - Hướng dẫn sử dụng Logger, cấu hình Logger ra Console, File theo Class name và Log Level.
 - Tại sao không nên dùng System.out.println để log
 - Logging (ghi hành trình) khác gì với Monitoring (giám sát liên tục)
-- Cơ chế Byte Code Manipulation giúp tạo mới class, method, property, thay đổi...
-- Demo cách Lombok sử dụng ASM Byte code
+- Cơ chế Byte Code Manipulation giúp tạo mới class, thêm sửa xoá method, property sử dụng JavaAssist, [ASM](https://asm.ow2.io/) hoặc ByteBuddy
+- Demo cách Lombok sử dụng [ASM](https://asm.ow2.io/) Byte code
+- Khuyến cáo sử dụng ByteBuddy vì dễ học.
 
 **Tình hình lớp:**
 - Long xin phép nghỉ vì phải release API cùng team.
