@@ -3,8 +3,13 @@ package vn.techmaster.simpleupload.controller;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,36 +17,24 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 import vn.techmaster.simpleupload.exception.RESTException;
+import vn.techmaster.simpleupload.request.PhotoRequest;
+import vn.techmaster.simpleupload.service.PhotoService;
 
 @RestController
-@Slf4j
 public class UploadController {
+  @Autowired
+  PhotoService photoService;
+
   @PostMapping("/upload")
-  public ResponseEntity<String> upload(
-    @RequestParam("file") MultipartFile file,
-    @RequestParam("description") String description) {
-    if (file == null) {
+  public ResponseEntity<String> upload(@ModelAttribute @Valid PhotoRequest photoRequest, HttpServletRequest request) {
+    if (photoRequest.getFile() == null) {
 			throw new RESTException("You must select the a file for uploading", HttpStatus.BAD_REQUEST);
 		}
 
-		InputStream inputStream;
-    try {
-      inputStream = file.getInputStream();
-    } catch (IOException e) {
-      log.error("Error when file.getInputStream", e.getMessage());
-      throw new RESTException("Error at file.getInputStream", e);
-    }
-		String originalName = file.getOriginalFilename();
-		String name = file.getName();
-		String contentType = file.getContentType();
-		long size = file.getSize();
+    String baseUrl = request.getRequestURL().substring(0, request.getRequestURL().length() - request.getRequestURI().length()) 
+    + request.getContextPath();
 
-		log.info("inputStream: " + inputStream);
-		log.info("originalName: " + originalName);
-		log.info("name: " + name);
-		log.info("contentType: " + contentType);
-		log.info("size: " + size);
-    log.info("description: " + description);
-    return ResponseEntity.ok().body("Upload success");
-  }  
+    String newFileName = photoService.savePhoto(photoRequest);
+    return ResponseEntity.ok().body(baseUrl + "/photos/" + newFileName);
+  } 
 }
