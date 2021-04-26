@@ -1,37 +1,22 @@
 # Hướng dẫn Upload binary file lên REST
 
 ## 1. Cấu hình [pom.xml](pom.xml)
-Chỉ cần spring-boot-starter-web là đủ. Ngoài ra lombok và spring-boot-starter-log4j2 để logging.
-
-```xml
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-web</artifactId>
-  <exclusions>
-    <exclusion>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-logging</artifactId>
-    </exclusion>
-  </exclusions>
-</dependency>
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-log4j2</artifactId>
-</dependency>
-<dependency>
-  <groupId>org.projectlombok</groupId>
-  <artifactId>lombok</artifactId>
-  <optional>true</optional>
-</dependency>
-```
+Cần có các thư viện:
+1. spring-boot-starter-web
+2. spring-boot-devtools để khởi động lại nhanh
+3. lombook
+4. spring-boot-starter-data-jpa
+5. H2: cơ sở dữ liệu SQL in memory
+6. log4j2
+7. spring-boot-starter-validation để validate dữ liệu gửi lên
 
 ## 2. Cấu trúc thư mục
+Cần tạo thêm thư mục [logs](logs/) và thư mục [photos](src/main/resources/static/photos/)
+
 ```
-.
 ├── logs <-- Thư mục log
 │   ├── app.log <-- Log những thông tin liên quan đến ứng dụng, class do tôi viết`
 │   └── springboot.log <-- Log những thông tin liên quan đến Spring Boot
-├── photos
 ├── src
 │   ├── main
 │   │   ├── java

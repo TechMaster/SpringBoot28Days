@@ -123,4 +123,19 @@ Kết quả bài tập tạo REST API:
 
 **Bài tập về nhà**
 - Hoàn thành toàn bộ ứng dụng [CRM](https://github.com/TechMaster/SpringBoot28Days/tree/main/08-RestCRUD/03-CRM/crm) bắt chiếc theo code của [BookStore](https://github.com/TechMaster/SpringBoot28Days/tree/main/08-RestCRUD/02-CRUD-Feign/bookstore)
-- Đọc trước về thư viện [Kryo](https://github.com/EsotericSoftware/kryo) để upload binary file
+
+## 10. Thực hành tại lớp upload file binary lên REST API
+**Tình hình lớp:**
+- Long xin phép nghỉ
+- Tân xin phép nghỉ
+- Sơn (Troy) nghỉ không phép.
+
+**Nộp ngay được bài tập tại lớp**
+- Đông
+- Huy
+- Đàm Tuấn Anh
+
+**Nộp trước hạn 12:00 đêm cuối ngày**
+- Ngọc
+
+[Bài giải đây](https://github.com/TechMaster/SpringBoot28Days/tree/main/10-RESTBinary/simpleupload)
