@@ -29,8 +29,9 @@ Chỉ cần spring-boot-starter-web là đủ. Ngoài ra lombok và spring-boot-
 ```
 .
 ├── logs <-- Thư mục log
-│   ├── app.log
-│   └── springboot.log
+│   ├── app.log <-- Log những thông tin liên quan đến ứng dụng, class do tôi viết`
+│   └── springboot.log <-- Log những thông tin liên quan đến Spring Boot
+├── photos
 ├── src
 │   ├── main
 │   │   ├── java
@@ -38,16 +39,27 @@ Chỉ cần spring-boot-starter-web là đủ. Ngoài ra lombok và spring-boot-
 │   │   │       └── techmaster
 │   │   │           └── simpleupload
 │   │   │               ├── controller
-│   │   │               │   ├── APIError.java <-- Class để đóng gói ngoại lệ trả về kiểu JSON
-│   │   │               │   ├── CustomExceptionHandler.java <-- Xử lý các ngoại lệ
-│   │   │               │   └── UploadController.java <-- REST Controller xử lý post
+│   │   │               │   ├── APIError.java
+│   │   │               │   ├── CustomExceptionHandler.java
+│   │   │               │   └── UploadController.java <-- Nơi ứng POST upload request
 │   │   │               ├── exception
 │   │   │               │   └── RESTException.java
+│   │   │               ├── model
+│   │   │               │   └── Photo.java <-- Định nghĩa Entity để lưu xuống CSDL
+│   │   │               ├── repository
+│   │   │               │   └── PhotoRepository.java
+│   │   │               ├── request
+│   │   │               │   └── PhotoRequest.java <-- Cấu trúc dữ liệu để lưu file upload và description
+│   │   │               ├── service
+│   │   │               │   └── PhotoService.java <-- Dịch vụ để lưu file ra ổ cứng và lưu meta vào CSDL
 │   │   │               └── SimpleuploadApplication.java
 │   │   └── resources
-│   │       ├── application.properties <-- cấu hình ứng dụng SpringBoot
-│   │       └── log4j2.xml <-- Cấu hình log4j2
-├── pom.xml
+│   │       ├── static
+│   │       │   └── photos <-- Chứa ảnh upload
+│   │       ├── templates
+│   │       ├── application.properties <-- Cấu hình cho ứng dụng
+│   │       └── log4j2.xml <-- Cấu hình Log4J2
+├── pom.xml <-- File cấu hình Maven
 ```
 ## 3. Cấu hình trong application.properties
 Cấu hình để SpringBoot hỗ trợ upload file đến 10 Mb.
@@ -55,64 +67,98 @@ Cấu hình để SpringBoot hỗ trợ upload file đến 10 Mb.
 spring.http.multipart.max-file-size=10MB
 spring.http.multipart.max-request-size=10MB
 spring.mvc.throw-exception-if-no-handler-found=true
-spring.resources.add-mappings=false
+spring.resources.add-mappings=true
 ```
-## 4. Tạo phương thức POST hỗ trợ paramter dạng multipart
-Chú ý 2 tham số mà phương thức POST sẽ nhận
+
+## 4. Tạo PhotoRequest
 ```java
-@RequestParam("file") MultipartFile file, //Nhận file binary có tên là "file"
-@RequestParam("description") String description //Nhận trường text có tên là "description"
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class PhotoRequest {
+  public MultipartFile file;  //Lưu file upload
+
+  @Size(min=5, max=200)  //Sử dụng Hibernate Validator
+  private String description;  
+}
 ```
+## 5. Tạo phương thức POST hỗ trợ paramter dạng multipart
+Chú ý  tham số mà phương thức POST sẽ nhận
+```java
+@ModelAttribute @Valid PhotoRequest photoRequest
+```
+
+Giải thích:
+- ```@ModelAttribute```: đánh dấu đây là cấu trúc dữ liệu của request.body
+- ```@Valid```: để kích hoạt tiến trình kiểm tra tính hợp lệ của ```photoRequest```
+
+
 ```java
 @RestController
-@Slf4j
 public class UploadController {
+  @Autowired
+  PhotoService photoService;
+
   @PostMapping("/upload")
-  public ResponseEntity<String> upload(
-    @RequestParam("file") MultipartFile file,
-    @RequestParam("description") String description) {
-    if (file == null) {
+  public ResponseEntity<String> upload(@ModelAttribute @Valid PhotoRequest photoRequest, HttpServletRequest request) {
+    if (photoRequest.getFile() == null) {
 			throw new RESTException("You must select the a file for uploading", HttpStatus.BAD_REQUEST);
 		}
 
-		InputStream inputStream;
-    try {
-      inputStream = file.getInputStream();
-    } catch (IOException e) {
-      log.error("Error when file.getInputStream", e.getMessage());
-      throw new RESTException("Error at file.getInputStream", e);
-    }
-		String originalName = file.getOriginalFilename();
-		String name = file.getName();
-		String contentType = file.getContentType();
-		long size = file.getSize();
+    String baseUrl = request.getRequestURL().substring(0, request.getRequestURL().length() - request.getRequestURI().length()) 
+    + request.getContextPath();
 
-		log.info("inputStream: " + inputStream);
-		log.info("originalName: " + originalName);
-		log.info("name: " + name);
-		log.info("contentType: " + contentType);
-		log.info("size: " + size);
-    log.info("description: " + description);
-    return ResponseEntity.ok().body("Upload success");
-  }  
+    String newFileName = photoService.savePhoto(photoRequest);
+    return ResponseEntity.ok().body(baseUrl + "/photos/" + newFileName);
+  } 
+}
+```
+## 5. Tạo interface PhotoRepository
+Tạm thời chỉ cần khai báo và dùng phương thức mặc định
+```java
+@Repository
+public interface PhotoRepository extends JpaRepository<Photo, Long> {
+  
 }
 ```
 
-## 5. Upload thử bằng Postman
-![](images/Postman.jpg)
+## 6. Tạo PhotoService.java
 
-## 6. Xem log file
-Vào [app.log](logs/app.log), bạn sẽ thấy
-```
-[INFO ] 2021-04-26 14:45:50.443 [http-nio-8080-exec-4] UploadController - inputStream: java.io.FileInputStream@5d168fc5
-[INFO ] 2021-04-26 14:45:50.443 [http-nio-8080-exec-4] UploadController - originalName: ngoan.jpg
-[INFO ] 2021-04-26 14:45:50.444 [http-nio-8080-exec-4] UploadController - name: file
-[INFO ] 2021-04-26 14:45:50.444 [http-nio-8080-exec-4] UploadController - contentType: image/jpeg
-[INFO ] 2021-04-26 14:45:50.444 [http-nio-8080-exec-4] UploadController - size: 14204
-[INFO ] 2021-04-26 14:45:50.445 [http-nio-8080-exec-4] UploadController - description: Đây là con cá
-```
+PhotoService có phương thức ```savePhoto``` vừa làm lưu file ra ổ cứng và lưu meta vào CSDL.
+Cần phải khai báo ```@Transactional(rollbackOn = {RESTException.class, IllegalArgumentException.class})``` để roll back với 2 exception là ```RESTException``` và ```IllegalArgumentException```
 
-Thử đổi tên trường "description" thành một tên mới, lỗi sẽ phát, log ghi nhận là
-```
-[ERROR] 2021-04-26 14:45:21.284 [http-nio-8080-exec-1] CustomExceptionHandler - MissingServletRequestParameterException : Required request parameter 'description' for method parameter type String is not present
+```java
+@Service
+public class PhotoService {
+  @Value("${upload.path}")  //Lấy tham số từ application.properties
+  private String path;
+  
+  @Autowired
+  private PhotoRepository photoRepository;
+
+  //Cần cài đặt Transaction ở đây để roll back khi có lỗi
+  @Transactional(rollbackOn = {RESTException.class, IllegalArgumentException.class})
+  public String savePhoto(PhotoRequest photoRequest) {
+    MultipartFile file = photoRequest.getFile();
+    
+    Photo photo = new Photo(file.getOriginalFilename(), file.getSize(), photoRequest.getDescription());
+    photoRepository.save(photo); //Lưu lần 1 để lấy ID của photo
+    long id = photo.getId();
+
+    String newFileName = id + "_" + file.getOriginalFilename();
+    photo.setFileName(newFileName);
+    String newFileNameWithPath = path + newFileName;
+
+    try { //Lưu ra ổ cứng
+      InputStream is = file.getInputStream();      
+      Files.copy(is, Paths.get(newFileNameWithPath), StandardCopyOption.REPLACE_EXISTING);
+    } catch (IOException e) {
+      throw new RESTException(String.format("Failed to store file %s", newFileNameWithPath), e);
+    }
+    photoRepository.save(photo);
+    photoRepository.flush();
+
+    return newFileName;  //trả về tên file được lưu thực sự   
+  }
+}
 ```
