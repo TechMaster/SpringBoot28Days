@@ -1,6 +1,6 @@
 # Hướng dẫn Upload binary file lên REST
 
-## 1. Cấu hình pom.xml
+## 1. Cấu hình [pom.xml](pom.xml)
 Chỉ cần spring-boot-starter-web là đủ. Ngoài ra lombok và spring-boot-starter-log4j2 để logging.
 
 ```xml
@@ -61,16 +61,30 @@ Chỉ cần spring-boot-starter-web là đủ. Ngoài ra lombok và spring-boot-
 │   │       └── log4j2.xml <-- Cấu hình Log4J2
 ├── pom.xml <-- File cấu hình Maven
 ```
-## 3. Cấu hình trong application.properties
+## 3. Cấu hình trong [application.properties](src/main/resources/application.properties)
 Cấu hình để SpringBoot hỗ trợ upload file đến 10 Mb.
 ```
 spring.http.multipart.max-file-size=10MB
 spring.http.multipart.max-request-size=10MB
 spring.mvc.throw-exception-if-no-handler-found=true
 spring.resources.add-mappings=true
+
+spring.datasource.url=jdbc:h2:mem:test
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=123
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.jpa.properties.hibernate.hbm2ddl.import_files=book.sql
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.format_sql=false
+
+upload.path=src/main/resources/static/photos/
 ```
 
-## 4. Tạo PhotoRequest
+## 4. Tạo [PhotoRequest.java](src/main/java/vn/techmaster/simpleupload/request/PhotoRequest.java)
+PhotoRequest sẽ cấu trúc dữ liệu tương ứng với nội dụng body của request POST /upload
+
 ```java
 @Data
 @NoArgsConstructor
@@ -83,6 +97,8 @@ public class PhotoRequest {
 }
 ```
 ## 5. Tạo phương thức POST hỗ trợ paramter dạng multipart
+
+Xem file [UploadController.java](src/main/java/vn/techmaster/simpleupload/controller/UploadController.java)
 Chú ý  tham số mà phương thức POST sẽ nhận
 ```java
 @ModelAttribute @Valid PhotoRequest photoRequest
@@ -113,7 +129,7 @@ public class UploadController {
   } 
 }
 ```
-## 5. Tạo interface PhotoRepository
+## 5. Tạo interface [PhotoRepository.java](src/main/java/vn/techmaster/simpleupload/repository/PhotoRepository.java)
 Tạm thời chỉ cần khai báo và dùng phương thức mặc định
 ```java
 @Repository
@@ -122,7 +138,7 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
 }
 ```
 
-## 6. Tạo PhotoService.java
+## 6. Tạo [PhotoService.java](src/main/java/vn/techmaster/simpleupload/service/PhotoService.java)
 
 PhotoService có phương thức ```savePhoto``` vừa làm lưu file ra ổ cứng và lưu meta vào CSDL.
 Cần phải khai báo ```@Transactional(rollbackOn = {RESTException.class, IllegalArgumentException.class})``` để roll back với 2 exception là ```RESTException``` và ```IllegalArgumentException```
