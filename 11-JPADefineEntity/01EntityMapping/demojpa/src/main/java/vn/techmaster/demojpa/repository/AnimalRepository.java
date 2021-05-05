@@ -7,5 +7,4 @@ import vn.techmaster.demojpa.model.mapping.Animal;
 
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long>{
-  
 }

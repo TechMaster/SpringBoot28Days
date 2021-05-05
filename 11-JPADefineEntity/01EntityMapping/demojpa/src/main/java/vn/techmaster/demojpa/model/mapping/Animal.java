@@ -15,4 +15,8 @@ public class Animal {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String name;
+
+  public Animal(String name) {
+    this.name = name;
+  }
 }

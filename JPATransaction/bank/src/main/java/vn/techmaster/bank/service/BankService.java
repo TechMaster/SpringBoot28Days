@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,9 @@ import vn.techmaster.bank.exception.BankErrorCode;
 import vn.techmaster.bank.exception.BankException;
 import vn.techmaster.bank.model.Account;
 import vn.techmaster.bank.model.AccountState;
-
 import vn.techmaster.bank.model.TransactLog;
 import vn.techmaster.bank.repository.AccountRepo;
-
+import vn.techmaster.bank.repository.AllLogRepo;
 import vn.techmaster.bank.repository.TransactLogRepo;
 
 @Service
@@ -29,6 +29,8 @@ public class BankService {
   @Autowired
   private LoggingService loggingService;
 
+
+  @Transactional(rollbackOn = { Exception.class })
   public void generateSampleData() {
     Account johnAccount = new Account("John", 1000L);
     Account bobAccount = new Account("Bob", 2000L);
@@ -42,6 +44,7 @@ public class BankService {
     accountRepo.save(aliceAccount);
     accountRepo.save(tomAccount);
     accountRepo.flush();
+    
   }
 
   @Transactional(rollbackOn = { BankException.class })
@@ -94,5 +97,7 @@ public class BankService {
     loggingService.saveLog(fromAccID, toAccID, amount, BankErrorCode.SUCCESS, "Success");
 
     return new TransferResult(BankErrorCode.SUCCESS, "Transfer success", transferDate);
-  }  
+  }
+
+ 
 }
