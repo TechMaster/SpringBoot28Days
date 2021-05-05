@@ -1,0 +1,1 @@
+Mã nguồn demo cho bài viết [Bổ xung phương thức vào JPA repository / tham chiếu đến EntityManager trong Repository](https://techmaster.vn/posts/preview/36447/truy-cap-vao-entitymanager-voi-spring-data-jpa)

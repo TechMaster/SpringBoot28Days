@@ -78,4 +78,11 @@ public class AnimalRepositoryTests {
     Animal animal = (Animal) query.getSingleResult();
     assertThat(animal.getName()).contains("Marshbird");
   }
+
+  @Test
+  @DisplayName("07. Find by name")
+  public void findByName() {
+    Optional<Animal> result = animalRepo.findByName("Bee-eater, carmine");
+    assertThat(result).isNotEmpty();
+  }
 }
