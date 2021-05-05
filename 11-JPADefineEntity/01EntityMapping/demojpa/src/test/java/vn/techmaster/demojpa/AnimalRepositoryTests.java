@@ -61,11 +61,21 @@ public class AnimalRepositoryTests {
   }
 
   @Test
-  @DisplayName("05. Get EntityManager from TestEntityManager")
-  public void getEntityManagerFromTestingEntityManager() {
+  @DisplayName("05. Get EntityManager to run native SQL query")
+  public void getEntityManagerRunNativeQuery() {
     EntityManager entityManager = testEntityManager.getEntityManager();
     Query query = entityManager.createNativeQuery("SELECT * FROM animal WHERE id = 1", Animal.class);
     Animal animal = (Animal) query.getSingleResult();
     assertThat(animal.getName()).isEqualTo("Marshbird, brown and yellow");
+  }
+
+  @Test
+  @DisplayName("06. Get EntityManager to run JPQL")
+  public void getEntityManagerRunJPQL() {
+    EntityManager entityManager = testEntityManager.getEntityManager();
+    Query query = entityManager.createQuery("SELECT a FROM DongVat a WHERE a.name LIKE '%Marshbird%'");
+    // JPQL does not support *
+    Animal animal = (Animal) query.getSingleResult();
+    assertThat(animal.getName()).contains("Marshbird");
   }
 }

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "DongVat")
 @Table(name = "animal")
 @Data
 @NoArgsConstructor
