@@ -139,3 +139,19 @@ Kết quả bài tập tạo REST API:
 - Ngọc
 
 [Bài giải đây](https://github.com/TechMaster/SpringBoot28Days/tree/main/10-RESTBinary/simpleupload)
+
+## 11. JPA - định nghĩa Entity
+[Nội dụng học](https://github.com/TechMaster/SpringBoot28Days/tree/main/11-JPADefineEntity)
+
+**Tình hình lớp:**
+- Đức: Thầy ơi em bị ốm đang ở Nghê An em xin phép vắng buổi học hôm nay ạ
+- Long nghỉ không phép.
+- Tân học trực tuyến vì đi công tác trong HCM.
+- Sơn (Troy) đã bị loại ra khỏi lớp
+
+**Bài tập giao tại lớp**
+- [Đông](https://github.com/Vandonger/JavaSpringBoot/blob/09-crm/11-demojpa/src/test/java/com/onemount/demo/CustomerTest.java) 10 điểm
+- [Huy](https://github.com/HustDolphin29598/SpringCourseHomework/tree/main/HW11/Customer) 10 điểm
+- [Hằng](https://github.com/hangdm3/JPA/blob/main/01EntityMapping/demojpa/src/test/java/vn/techmaster/demojpa/CustomerTest.java) 5 điểm vì viết tất cả logic vào một test case
+- [Ngọc](https://github.com/ngoc-nguyen-12/demojpa) 8 điểm, trừ 2 điểm phần thiếu assertThat test case Delete
+- [Nhật](https://github.com/nguyenvanhnhat/QuanLyDuAn/tree/main/entitydemo) 8 điểm, trừ 2 điểm phần thiếu assertThat test case Delete
