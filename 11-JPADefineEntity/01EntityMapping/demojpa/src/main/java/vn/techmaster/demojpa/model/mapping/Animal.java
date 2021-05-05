@@ -7,10 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "animal")
 @Data
+@NoArgsConstructor
 public class Animal {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
