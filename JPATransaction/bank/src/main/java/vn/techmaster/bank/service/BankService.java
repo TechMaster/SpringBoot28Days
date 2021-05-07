@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import vn.techmaster.bank.controller.response.TransferResult;
 import vn.techmaster.bank.exception.BankErrorCode;
 import vn.techmaster.bank.exception.BankException;
+import vn.techmaster.bank.exception.DummyException;
 import vn.techmaster.bank.model.Account;
 import vn.techmaster.bank.model.AccountState;
 import vn.techmaster.bank.model.TransactLog;
 import vn.techmaster.bank.repository.AccountRepo;
-import vn.techmaster.bank.repository.AllLogRepo;
 import vn.techmaster.bank.repository.TransactLogRepo;
 
 @Service
@@ -84,8 +84,12 @@ public class BankService {
       throw new BankException(BankErrorCode.ACCOUNT_DISABLED, "Account is disabled", detail);      
     }
     
-
+    /* Thử nghiệm chức năng dontRollbackOn */
     fromAccount.setBalance(fromAccount.getBalance() - amount);
+    if (true) {
+      throw new DummyException();
+    }
+
     toAccount.setBalance(toAccount.getBalance() + amount);
     Date transferDate = new Date();
     TransactLog transactLog = new TransactLog(fromAccount, toAccount, amount, transferDate);
