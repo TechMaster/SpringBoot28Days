@@ -1,8 +1,13 @@
 package vn.techmaster.relation.model.manymany.noextracolumns;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -18,5 +23,12 @@ public class Tag {
   @Id @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  private String title;
+  private String name;
+
+  public Tag(String name) {
+    this.name = name;
+  }
+
+  @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+  List<Article> articles = new ArrayList<>();
 }

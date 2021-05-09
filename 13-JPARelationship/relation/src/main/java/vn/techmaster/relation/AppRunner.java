@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import vn.techmaster.relation.service.manymany.ArticleTagService;
 import vn.techmaster.relation.service.manymany.StudentSubjectService;
 import vn.techmaster.relation.service.onemany.bidirection.PersonAddressService;
 import vn.techmaster.relation.service.onemany.bidirection.PostService;
@@ -22,6 +23,8 @@ public class AppRunner implements CommandLineRunner {
   
   @Autowired private StudentSubjectService studentSubjectService;
 
+  @Autowired private ArticleTagService articleTagService;
+
   @Override
   public void run(String... args) throws Exception {
     postService.createPostAndComments();
@@ -33,7 +36,8 @@ public class AppRunner implements CommandLineRunner {
     profDeptService.generateProfessorDepartment();
 
     studentSubjectService.generateStudentSubject();
-    
+
+    articleTagService.generateArticleTag();    
   }
   
 }

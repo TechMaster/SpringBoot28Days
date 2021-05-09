@@ -1,5 +1,7 @@
 package vn.techmaster.relation.service.onemany.bidirection;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import com.github.javafaker.Faker;
@@ -28,6 +30,11 @@ public class PostService {
       postRepo.save(post);
     }
     postRepo.flush();
+  }
+
+  public List<Post> getAllPosts() {
+    List<Post> result = postRepo.findAll();
+    return result;
   }
   
 }
