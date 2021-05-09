@@ -22,5 +22,5 @@ public class Address {
   }
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private Person person;
+  private Customer customer;
 }

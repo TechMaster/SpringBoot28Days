@@ -6,11 +6,12 @@ import org.springframework.stereotype.Component;
 
 import vn.techmaster.relation.service.manymany.ArticleTagService;
 import vn.techmaster.relation.service.manymany.StudentSubjectService;
-import vn.techmaster.relation.service.onemany.bidirection.PersonAddressService;
+import vn.techmaster.relation.service.onemany.bidirection.CustomerAddressService;
 import vn.techmaster.relation.service.onemany.bidirection.PostService;
 import vn.techmaster.relation.service.onemany.bidirection.ProfessorDepartmentService;
 import vn.techmaster.relation.service.onemany.unidirection.ProductCategoryService;
 import vn.techmaster.relation.service.selfreference.EmployeeService;
+import vn.techmaster.relation.service.selfreference.FamilyService;
 
 @Component
 public class AppRunner implements CommandLineRunner {
@@ -18,7 +19,7 @@ public class AppRunner implements CommandLineRunner {
 
   @Autowired private ProductCategoryService productCategoryService;
 
-  @Autowired private PersonAddressService personAddressService;
+  @Autowired private CustomerAddressService personAddressService;
   
   @Autowired private ProfessorDepartmentService profDeptService;
   
@@ -28,13 +29,15 @@ public class AppRunner implements CommandLineRunner {
 
   @Autowired private EmployeeService employeeService;
 
+  @Autowired private FamilyService familyService;
+
   @Override
   public void run(String... args) throws Exception {
     postService.createPostAndComments();
 
     productCategoryService.generateCategoryProduct();
 
-    personAddressService.generatePersonAddress();
+    personAddressService.generateCustomerAddress();
 
     profDeptService.generateProfessorDepartment();
 
@@ -43,6 +46,8 @@ public class AppRunner implements CommandLineRunner {
     articleTagService.generateArticleTag();
 
     employeeService.generateEmployee();
+
+    familyService.generateFamilyTree();
   }
   
 }

@@ -14,25 +14,27 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Table
+@Entity(name="customer")
+@Table(name="customer")
 @Data
-public class Person {
+@NoArgsConstructor
+public class Customer {
   @Id @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   private String name;
 
-  public Person(String name) {
+  public Customer(String name) {
     this.name = name;
   }
 
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "person_id")
+  @JoinColumn(name = "customer_id")
   private List<Address> addresses = new ArrayList<>();
   public void addAddress(Address address) {
-    address.setPerson(this);
+    address.setCustomer(this);
     addresses.add(address);
   }
 

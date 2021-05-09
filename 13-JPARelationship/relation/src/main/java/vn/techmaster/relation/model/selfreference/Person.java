@@ -21,44 +21,60 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name="employee")
-@Entity(name="employee")
+@Entity(name = "person")
+@Table(name = "person")
 @Data
 @NoArgsConstructor
-public class Employee {
+public class Person {
   @Id @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  private String name; 
+  private String name;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JsonIgnore
-  private Employee manager; //Sếp trực tiếp
+  private Person mother;
 
-  @ManyToMany(mappedBy = "manager")
+  @ManyToOne(fetch = FetchType.LAZY)
   @JsonIgnore
-  private List<Employee> staffs;
+  private Person father;
 
-  public Employee(String name, Employee manager) {
+  @ManyToMany
+  @JsonIgnore
+  private List<Person> parents = new ArrayList<>();
+ 
+ 
+  @ManyToMany(mappedBy = "parents")
+  @JsonIgnore
+  private List<Person> children = new ArrayList<>();
+
+  public Person(String name, Person mother, Person father) {
     this.name = name;
-    this.manager = manager;
+    this.mother = mother;
+    this.father = father;
+    if (mother != null) parents.add(mother);
+    if (father != null) parents.add(father);
   }
 
   @Transient
-  @JsonGetter(value = "manager")
+  @JsonGetter(value = "parents")
   @JsonInclude(Include.NON_NULL)
-  public String getManager() {
-    return manager != null ? manager.getName() : null;
+  public List<String> getParents() {
+    if (parents.isEmpty()) return null;
+
+    List<String> result = new ArrayList<>();
+    parents.stream().forEach(person -> result.add(person.getName()));
+    return result;
   }
 
   @Transient
-  @JsonGetter(value = "staffs")
+  @JsonGetter(value = "children")
   @JsonInclude(Include.NON_NULL)
-  public List<String> getStaffs() {
-    if (staffs.isEmpty()) return null;
+  public List<String> getChildren() {   
+    if (children.isEmpty()) return null;
     
     List<String> result = new ArrayList<>();
-    staffs.stream().forEach(emp -> result.add(emp.getName()));
+    children.stream().forEach(person -> result.add(person.getName()));
     return result;
   }
 }

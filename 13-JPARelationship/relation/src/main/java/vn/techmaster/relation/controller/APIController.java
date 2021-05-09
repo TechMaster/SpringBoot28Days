@@ -11,10 +11,12 @@ import vn.techmaster.relation.model.manymany.noextracolumns.Article;
 import vn.techmaster.relation.model.manymany.separate_primary_key.Student;
 import vn.techmaster.relation.model.onemany.bidirection.Post;
 import vn.techmaster.relation.model.selfreference.Employee;
+import vn.techmaster.relation.model.selfreference.Person;
 import vn.techmaster.relation.service.manymany.ArticleTagService;
 import vn.techmaster.relation.service.manymany.StudentSubjectService;
 import vn.techmaster.relation.service.onemany.bidirection.PostService;
 import vn.techmaster.relation.service.selfreference.EmployeeService;
+import vn.techmaster.relation.service.selfreference.FamilyService;
 
 @RestController
 public class APIController {
@@ -26,6 +28,8 @@ public class APIController {
   @Autowired private PostService postService;
 
   @Autowired private EmployeeService employeeService;
+
+  @Autowired private FamilyService familyService;
   
   @GetMapping("/student")
   public ResponseEntity<List<Student>> getStudents() {
@@ -46,5 +50,10 @@ public class APIController {
   @GetMapping("/employee")
   public ResponseEntity<List<Employee>> getEmployees() {
     return ResponseEntity.ok().body(employeeService.getAllEmployees());
+  }
+
+  @GetMapping("/person")
+  public ResponseEntity<List<Person>> getAllPeople() {
+    return ResponseEntity.ok().body(familyService.getAll());
   }
 }

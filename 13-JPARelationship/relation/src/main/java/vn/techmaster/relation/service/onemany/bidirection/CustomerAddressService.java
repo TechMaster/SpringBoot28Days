@@ -6,31 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.techmaster.relation.model.onemany.bidirection.Address;
-import vn.techmaster.relation.model.onemany.bidirection.Person;
-import vn.techmaster.relation.repository.onemany.bidirection.PersonRepository;
+import vn.techmaster.relation.model.onemany.bidirection.Customer;
+import vn.techmaster.relation.repository.onemany.bidirection.CustomerRepository;
 
 @Service
-public class PersonAddressService {
-  @Autowired private PersonRepository personRepository;
+public class CustomerAddressService {
+  @Autowired private CustomerRepository customerRepository;
 
   @Transactional
-  public void generatePersonAddress() {
-    Person cuong = new Person("Trịnh Minh Cường");
+  public void generateCustomerAddress() {
+    Customer cuong = new Customer("Trịnh Minh Cường");
     cuong.addAddress(new Address("14 ngõ 4 Nguyễn Đình Chiểu"));
     cuong.addAddress(new Address("tầng 12A, Viwaseen Tower, 48 Tố Hữu"));
 
 
-    Person dzung = new Person("Đoàn Xuân Dũng");
+    Customer dzung = new Customer("Đoàn Xuân Dũng");
     dzung.addAddress(new Address("Ngách 11, tổ 1, tập thể Bưu Điện"));
 
-    Person johnLennon = new Person("John Lenon");
+    Customer johnLennon = new Customer("John Lenon");
     johnLennon.addAddress(new Address("Empire State, New York"));
 
-    personRepository.save(johnLennon);
-    personRepository.save(cuong);
-    personRepository.save(dzung);
+    customerRepository.save(johnLennon);
+    customerRepository.save(cuong);
+    customerRepository.save(dzung);
     
     //Demo chức năng removeOrphan, xoá johnLennon thì các địa chỉ của John Lennon cũng bị xoá theo.
-    personRepository.delete(johnLennon);
+    customerRepository.delete(johnLennon);
   }
 }
