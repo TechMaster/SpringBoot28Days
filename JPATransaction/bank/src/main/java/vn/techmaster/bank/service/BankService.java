@@ -84,12 +84,12 @@ public class BankService {
       throw new BankException(BankErrorCode.ACCOUNT_DISABLED, "Account is disabled", detail);      
     }
     
-    /* Thử nghiệm chức năng dontRollbackOn */
+    
     fromAccount.setBalance(fromAccount.getBalance() - amount);
+    /* Thử nghiệm chức năng dontRollbackOn 
     if (true) {
       throw new DummyException();
-    }
-
+    } */
     toAccount.setBalance(toAccount.getBalance() + amount);
     Date transferDate = new Date();
     TransactLog transactLog = new TransactLog(fromAccount, toAccount, amount, transferDate);

@@ -68,6 +68,7 @@ public class Post {
     )
     @JoinColumn(name = "post_id")
     private List<Comment> comments = new ArrayList<>();
+    
     public void addComment(Comment comment) {
         comments.add(comment);
         comment.setPost(this);

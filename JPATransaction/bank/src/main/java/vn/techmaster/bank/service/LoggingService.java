@@ -18,7 +18,7 @@ public class LoggingService {
   
   //@Transactional(value = TxType.NOT_SUPPORTED, dontRollbackOn={ BankException.class })
   
-  @Transactional(value = TxType.NOT_SUPPORTED)  //lưu được all log thành công vì tạo ra 2 transaction context khác nhau
+  @Transactional(value = TxType.NEVER)  //lưu được all log thành công vì tạo ra 2 transaction context khác nhau
   //@Transactional(value = TxType.REQUIRED) //Nằm trong transaction context của hàm gọi, nên không lưu được mọi log
   //@Transactional(value = TxType.REQUIRED, dontRollbackOn={ BankException.class })  
   //@Transactional(value = TxType.SUPPORTS) //Không ghi được hết log
