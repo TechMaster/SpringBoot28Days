@@ -13,10 +13,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NaturalId;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Table(name="user")
 @Entity(name="user")
 @Data
+@NoArgsConstructor
 public class User {
   @Id @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;

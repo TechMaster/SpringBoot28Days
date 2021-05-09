@@ -10,6 +10,7 @@ import vn.techmaster.relation.service.onemany.bidirection.PersonAddressService;
 import vn.techmaster.relation.service.onemany.bidirection.PostService;
 import vn.techmaster.relation.service.onemany.bidirection.ProfessorDepartmentService;
 import vn.techmaster.relation.service.onemany.unidirection.ProductCategoryService;
+import vn.techmaster.relation.service.selfreference.EmployeeService;
 
 @Component
 public class AppRunner implements CommandLineRunner {
@@ -25,6 +26,8 @@ public class AppRunner implements CommandLineRunner {
 
   @Autowired private ArticleTagService articleTagService;
 
+  @Autowired private EmployeeService employeeService;
+
   @Override
   public void run(String... args) throws Exception {
     postService.createPostAndComments();
@@ -37,7 +40,9 @@ public class AppRunner implements CommandLineRunner {
 
     studentSubjectService.generateStudentSubject();
 
-    articleTagService.generateArticleTag();    
+    articleTagService.generateArticleTag();
+
+    employeeService.generateEmployee();
   }
   
 }

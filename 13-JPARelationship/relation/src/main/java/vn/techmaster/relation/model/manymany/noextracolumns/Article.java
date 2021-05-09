@@ -16,7 +16,6 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,7 +23,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "article")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Article {
   @Id @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
