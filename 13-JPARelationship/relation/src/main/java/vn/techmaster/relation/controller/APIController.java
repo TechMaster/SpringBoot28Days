@@ -7,19 +7,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.techmaster.relation.model.inheritance.mappedsuperclass.BaseProduct;
 import vn.techmaster.relation.model.manymany.noextracolumns.Article;
 import vn.techmaster.relation.model.manymany.separate_primary_key.Student;
 import vn.techmaster.relation.model.onemany.bidirection.Post;
+import vn.techmaster.relation.model.oneone.User;
 import vn.techmaster.relation.model.selfreference.Employee;
 import vn.techmaster.relation.model.selfreference.Person;
+import vn.techmaster.relation.service.inheritance.mappedsuperclass.ProductService;
 import vn.techmaster.relation.service.manymany.ArticleTagService;
 import vn.techmaster.relation.service.manymany.StudentSubjectService;
 import vn.techmaster.relation.service.onemany.bidirection.PostService;
+import vn.techmaster.relation.service.oneone.UserService;
 import vn.techmaster.relation.service.selfreference.EmployeeService;
 import vn.techmaster.relation.service.selfreference.FamilyService;
 
 @RestController
 public class APIController {
+  @Autowired private UserService userService;
   
   @Autowired private StudentSubjectService studentSubjectService;
   
@@ -30,7 +35,16 @@ public class APIController {
   @Autowired private EmployeeService employeeService;
 
   @Autowired private FamilyService familyService;
+
+  @Autowired private ProductService productService;  
   
+
+  @GetMapping("/user")
+  public ResponseEntity<List<User>> getUsers() {
+    return ResponseEntity.ok().body(userService.getAll());
+  }
+
+
   @GetMapping("/student")
   public ResponseEntity<List<Student>> getStudents() {
     return ResponseEntity.ok().body(studentSubjectService.getAllStudents());
@@ -55,5 +69,10 @@ public class APIController {
   @GetMapping("/person")
   public ResponseEntity<List<Person>> getAllPeople() {
     return ResponseEntity.ok().body(familyService.getAll());
+  }
+
+  @GetMapping("/product")
+  public ResponseEntity<List<BaseProduct>> getAllProducts() {
+    return ResponseEntity.ok().body(productService.getAllProducts());
   }
 }
