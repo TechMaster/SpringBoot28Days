@@ -31,4 +31,5 @@ https://thorben-janssen.com/hibernate-tip-many-to-many-association-with-addition
 https://medium.com/@udith.indrakantha/issue-related-with-infinite-recursive-fetching-of-data-from-relationships-between-entity-classes-ffc5fac6c816
 
 https://www.baeldung.com/hibernate-inheritance
+https://thorben-janssen.com/complete-guide-inheritance-strategies-jpa-hibernate/
 

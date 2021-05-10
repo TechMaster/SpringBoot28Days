@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import vn.techmaster.relation.service.inheritance.mappedsuperclass.ProductService;
+import vn.techmaster.relation.service.inheritance.singletable.EletronicsService;
+import vn.techmaster.relation.service.inheritance.tableperclass.AnimalService;
 import vn.techmaster.relation.service.manymany.ArticleTagService;
 import vn.techmaster.relation.service.manymany.StudentSubjectService;
 import vn.techmaster.relation.service.onemany.bidirection.CustomerAddressService;
@@ -37,6 +39,10 @@ public class AppRunner implements CommandLineRunner {
 
   @Autowired private ProductService productService;
 
+  @Autowired private EletronicsService electronicsService;
+
+  @Autowired private AnimalService animalService;
+
   @Override
   public void run(String... args) throws Exception {
     userService.generateUsers();
@@ -58,6 +64,10 @@ public class AppRunner implements CommandLineRunner {
     familyService.generateFamilyTree();
 
     productService.generateProduct();
+
+    electronicsService.generateEletronicsProducts();
+
+    animalService.generateAnimals();
   }
   
 }
