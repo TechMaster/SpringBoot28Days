@@ -41,9 +41,15 @@ public class EletronicsService {
     em.persist(lg100);
   }
 
+  /*
+  Single table inheritance chấp nhận dư thừa cột, nhưng tốc độ truy vấn nhanh, và hỗ trợ polymorphics query
+  */
+  public List<Electronics> getPolymorphicElectronics() {
+    TypedQuery<Electronics> queryElectronics = em.createQuery("SELECT e FROM electronics as e", Electronics.class);
+    return queryElectronics.getResultList();
+  }
+
   public List<Electronics> getAllElectronics() {
-    //TypedQuery<Electronics> queryElectronics = em.createQuery("SELECT e FROM electronics as e", Electronics.class);
-    
     TypedQuery<Laptop> queryLaptop = em.createQuery("SELECT lap FROM laptop as lap", Laptop.class);
     TypedQuery<Fridge> queryFridge = em.createQuery("SELECT f FROM fridge as f", Fridge.class);
     

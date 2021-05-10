@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import vn.techmaster.relation.model.inheritance.mappedsuperclass.BaseProduct;
 import vn.techmaster.relation.model.inheritance.singletable.Electronics;
+import vn.techmaster.relation.model.inheritance.tableperclass.Animal;
 import vn.techmaster.relation.model.manymany.noextracolumns.Article;
 import vn.techmaster.relation.model.manymany.separate_primary_key.Student;
 import vn.techmaster.relation.model.onemany.bidirection.Post;
@@ -17,6 +18,7 @@ import vn.techmaster.relation.model.selfreference.Employee;
 import vn.techmaster.relation.model.selfreference.Person;
 import vn.techmaster.relation.service.inheritance.mappedsuperclass.ProductService;
 import vn.techmaster.relation.service.inheritance.singletable.EletronicsService;
+import vn.techmaster.relation.service.inheritance.tableperclass.AnimalService;
 import vn.techmaster.relation.service.manymany.ArticleTagService;
 import vn.techmaster.relation.service.manymany.StudentSubjectService;
 import vn.techmaster.relation.service.onemany.bidirection.PostService;
@@ -41,6 +43,9 @@ public class APIController {
   @Autowired private ProductService productService;  
   
   @Autowired private EletronicsService electronicsService;
+
+
+  @Autowired private AnimalService animalService;
 
   @GetMapping("/user")
   public ResponseEntity<List<User>> getUsers() {
@@ -79,8 +84,19 @@ public class APIController {
     return ResponseEntity.ok().body(productService.getAllProducts());
   }
 
+
+  @GetMapping("/baseelectronics")
+  public ResponseEntity<List<Electronics>> getPolymorphicElectronics() {
+    return ResponseEntity.ok().body(electronicsService.getPolymorphicElectronics());
+  }
+
   @GetMapping("/electronics")
   public ResponseEntity<List<Electronics>> getAllElectronics() {
     return ResponseEntity.ok().body(electronicsService.getAllElectronics());
+  }
+
+  @GetMapping("/animal")
+  public ResponseEntity<List<Animal>> getAllAnimals() {
+    return ResponseEntity.ok().body(animalService.getAllAnimals());
   }
 }

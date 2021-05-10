@@ -10,7 +10,7 @@ import javax.persistence.InheritanceType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "animal")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
 @NoArgsConstructor
