@@ -52,6 +52,11 @@ public class APIController {
     return ResponseEntity.ok().body(userService.getAll());
   }
 
+  @GetMapping("/users")
+  public ResponseEntity<List<User>> queryAllUsers() {
+    return ResponseEntity.ok().body(userService.queryAll());
+  }
+
 
   @GetMapping("/student")
   public ResponseEntity<List<Student>> getStudents() {

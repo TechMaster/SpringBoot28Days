@@ -155,15 +155,7 @@ Kết quả bài tập tạo REST API:
 - [Hằng](https://github.com/hangdm3/JPA/blob/main/01EntityMapping/demojpa/src/test/java/vn/techmaster/demojpa/CustomerTest.java) 5 điểm vì viết tất cả logic vào một test case
 - [Ngọc](https://github.com/ngoc-nguyen-12/demojpa) 8 điểm, trừ 2 điểm phần thiếu assertThat test case Delete
 - [Nhật](https://github.com/nguyenvanhnhat/QuanLyDuAn/tree/main/entitydemo) 8 điểm, trừ 2 điểm phần thiếu assertThat test case Delete
-## 12. JPA - định nghĩa các Relationship
-
-- Giới thiệu các loại quan hệ:
-  1. @OneToOne
-  2. @OneToMany --> Phổ biến nhất
-  3. @ManyToOne --> Phổ biến nhất
-  4. @ManyToMany --> Phổ biến nhất
-  5. Self reference
-  6. Inheritance
+## 12. JPA - định nghĩa Entity
 
 - [Demo ví dụ microblog](https://github.com/TechMaster/SpringBoot28Days/tree/main/13-JPARelationship/blog)
 
@@ -177,4 +169,19 @@ Kết quả bài tập tạo REST API:
 **Giao việc dịch viết bài chia sẻ lên blog Techmaster**
 1. Chị Ngọc viết lại bài giải thích lên blog Techmaster
 2. Anh Nhật dịch bài [Spring Boot MVC & REST Annotations With Examples](https://javatechonline.com/spring-boot-mvc-rest-annotations-with-examples/)
-3. Anh Đức dịch bài []
+
+
+## 13. JPA các quan hệ
+Thực hành các loại quan hệ. [Ví dụ mẫu ở đây](https://github.com/TechMaster/SpringBoot28Days/tree/main/13-JPARelationship/relation)
+  1. @OneToOne
+  2. @OneToMany --> Phổ biến nhất
+  3. @ManyToOne --> Phổ biến nhất
+  4. @ManyToMany --> Phổ biến nhất
+  5. Self reference
+  6. Inheritance
+
+**Tình hình lớp:**
+ - Tân học từ xa
+
+## 14. 
+

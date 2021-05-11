@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,7 +28,7 @@ public class Tag {
   public Tag(String name) {
     this.name = name;
   }
-
+  @JsonBackReference
   @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
   List<Article> articles = new ArrayList<>();
 }

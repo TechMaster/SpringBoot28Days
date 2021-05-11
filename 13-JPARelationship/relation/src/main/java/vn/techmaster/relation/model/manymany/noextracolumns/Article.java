@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,7 +40,7 @@ public class Article {
       joinColumns = @JoinColumn(name = "article_id"),
       inverseJoinColumns = @JoinColumn(name = "tag_id")
   )
-  @JsonIgnore
+  /*@JsonIgnore
   private List<Tag> tags = new ArrayList<>();
   
   public void addTag(Tag tag) {
@@ -58,5 +59,19 @@ public class Article {
     List<String> result = new ArrayList<>();
     tags.stream().forEach(tag -> result.add(tag.getName()));
     return result;
+  }*/
+
+  //Cách làm rất đẹp của Huy, cách này có cả object mà không bị recursive
+  @JsonManagedReference
+  private List<Tag> tags = new ArrayList<>();
+  
+  public void addTag(Tag tag) {
+      tags.add(tag);
+      tag.getArticles().add(this);        
+  }
+
+  public void removeTag(Tag tag) {
+      tags.remove(tag);
+      tag.getArticles().remove(this);
   }
 }
