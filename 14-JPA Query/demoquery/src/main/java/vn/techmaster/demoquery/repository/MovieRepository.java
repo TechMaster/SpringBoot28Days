@@ -8,4 +8,5 @@ import vn.techmaster.demoquery.model.Movie;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
   public List<Movie> findAllByOrderByYearAsc();
+  public List<Movie> findAllByOrderByTitleAsc();
 }

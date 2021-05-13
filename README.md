@@ -183,5 +183,24 @@ Thực hành các loại quan hệ. [Ví dụ mẫu ở đây](https://github.co
 **Tình hình lớp:**
  - Tân học từ xa
 
-## 14. 
+## 14. JPA Query
+
+1. Hãy tìm cách display câu lệnh SQL mà Hibernate sinh ra cùng với giá trị của tham số truyền vào.
+   
+2. Viết câu lệnh SQL hay bất kỳ cách gì để liệt film theo năm dạng ```map<String, List<Film>>```
+```
+{
+  "1995": [
+    "Gone with wind",
+    "Titanic"    
+  ],
+  "1996": [
+    "Godzilla",
+    "God Father"
+    "XYZ Film"
+  ]
+}
+```
+
+
 

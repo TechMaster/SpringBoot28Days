@@ -83,7 +83,7 @@ public class CarRepositoryTest {
 
   @Test
   public void top5CarMakerTest() {
-    List<MakerCount> top5Makers= carRepository.topCarMaker(PageRequest.of(0, 5));
+    List<MakerCount> top5Makers= carRepository.topCarMaker(PageRequest.of(2, 5));
     top5Makers.forEach(System.out::println);
     assertThat(top5Makers).hasSize(5);
   }
