@@ -31,7 +31,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Person {
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id //@GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(columnDefinition = "bigserial")
   private Long id;
   
   @Column(name="name", nullable = false)
