@@ -121,8 +121,8 @@ public class APIController {
     return ResponseEntity.ok().body(personService.findByName(query, name));
   }
 
-  @GetMapping("/person/topsalary/{top}")
-  public ResponseEntity<List<Person>> getPersonByTopSalary(@PathVariable(name = "top") Integer top) {
+  @GetMapping("/person/top5salary")
+  public ResponseEntity<List<Person>> getPersonByTopSalary() {
     List<Person> result = personRepo.findTop5ByOrderBySalaryDesc();
     return ResponseEntity.ok().body(result);
   }

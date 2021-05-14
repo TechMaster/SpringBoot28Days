@@ -45,7 +45,7 @@ public class AppRunner implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    /*userService.generateUsers();
+    userService.generateUsers();
     
     postService.createPostAndComments();
 
@@ -67,7 +67,7 @@ public class AppRunner implements CommandLineRunner {
 
     electronicsService.generateEletronicsProducts();
 
-    animalService.generateAnimals();*/
+    animalService.generateAnimals();
   }
   
 }

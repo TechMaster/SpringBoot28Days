@@ -1,4 +1,4 @@
-package vn.techmaster.relation.model.sample;
+package vn.techmaster.connectdb.model;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 
 
 @Entity(name="person")
+//Phần này demo phần đánh index
 @Table(name="person", indexes={
   @Index(name = "idx_name", columnList = "name"),
   @Index(name = "idx_job", columnList = "job"),
@@ -31,7 +32,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Person {
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(columnDefinition = "serial")
   private Long id;
   
   @Column(name="name", nullable = false)

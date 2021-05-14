@@ -1,7 +1,9 @@
 package vn.techmaster.relation.model.selfreference;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,12 +23,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name="employee")
 @Entity(name="employee")
+@Table(name="employee")
 @Data
 @NoArgsConstructor
 public class Employee {
-  @Id @GeneratedValue(strategy = GenerationType.AUTO)
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name; 
@@ -55,7 +57,7 @@ public class Employee {
   @JsonGetter(value = "staffs")
   @JsonInclude(Include.NON_NULL)
   public List<String> getStaffs() {
-    if (staffs.isEmpty()) return null;
+    if (staffs.isEmpty()) return Collections.emptyList();
     
     List<String> result = new ArrayList<>();
     staffs.stream().forEach(emp -> result.add(emp.getName()));

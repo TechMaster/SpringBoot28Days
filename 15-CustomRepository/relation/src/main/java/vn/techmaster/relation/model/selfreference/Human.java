@@ -63,7 +63,7 @@ public class Human {
     if (parents.isEmpty()) return null;
 
     List<String> result = new ArrayList<>();
-    parents.stream().forEach(person -> result.add(person.getName()));
+    parents.stream().forEach(human -> result.add(human.getName()));
     return result;
   }
 

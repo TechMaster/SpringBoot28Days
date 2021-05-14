@@ -184,10 +184,17 @@ Thực hành các loại quan hệ. [Ví dụ mẫu ở đây](https://github.co
  - Tân học từ xa
 
 ## 14. JPA Query
+Giới thiệu về các loại Query phổ biến trong JPA
+1. Derived Query viết trong interface repository
+2. @Query()
+3. @Query(value = "SELECT * FROM USERS u WHERE u.status = 1",  nativeQuery = true)
+4. @NamedQuery viết bổ xung vào @Entity
 
-1. Hãy tìm cách display câu lệnh SQL mà Hibernate sinh ra cùng với giá trị của tham số truyền vào.
-   
-2. Viết câu lệnh SQL hay bất kỳ cách gì để liệt film theo năm dạng ```map<String, List<Film>>```
+
+
+5. Mã nguồn ví dụ [DemoQuery](https://github.com/TechMaster/SpringBoot28Days/tree/main/14-JPA%20Query/demoquery)
+6. Hãy tìm cách display câu lệnh SQL mà Hibernate sinh ra cùng với giá trị của tham số truyền vào.
+7. Viết câu lệnh SQL hay bất kỳ cách gì để liệt film theo năm dạng ```map<String, List<Film>>```
 ```
 {
   "1995": [
@@ -202,5 +209,31 @@ Thực hành các loại quan hệ. [Ví dụ mẫu ở đây](https://github.co
 }
 ```
 
+**Tình hình lớp:**
+ - Tân, Hằng học từ xa
 
+**Bài tập giao về nhà nhưng chưa ai làm**
+- Mô hình hoá ứng dụng Vincinema bằng JPA Entity
+
+## 15. Docker, MySQL, Postgresql, multi configuration profiles, Derived Query
+1. Cài đặc Docker: sinh viên tự cài ở nhà
+2. Khởi động MySQL và Postgresql bằng Docker container
+3. Ôn lại và bổ xung một số kỹ thuật định nghĩa Entity
+   - ```@Temporal```
+   - ```@Index```: đánh chỉ mục cột
+   - ```@Transient```
+4. Các vấn đề khi chuyển đổi từ H2 sang MySQL và Postgresql
+5. Sử dụng MySQL WorkBench và PGAdmin4
+6. Học cách sinh động dữ liệu Mockaroo
+7. Chấm bài tập mô hình hoá Vincinema
+
+
+
+**Những bạn đi muộn**
+1. Đức 
+2. Huy
+3. Nhật
+**Những bạn nghỉ**
+1. Tân
+2. Hằng học trực tuyến
 
