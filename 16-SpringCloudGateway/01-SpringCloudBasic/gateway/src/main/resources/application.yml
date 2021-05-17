@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: book
+          uri: http://localhost:8081/
+          predicates:
+          - Path=/book/**
+        - id: film
+          uri: http://localhost:8082/
+          predicates:
+          - Path=/film/**
+          filters:
+          - name: RequestRateLimiter
+            args:
+              redis-rate-limiter: 
+                replenishRate: 1
+                burstCapacity: 2
+                requestedTokens: 1
+management:
+  health:
+    redis:
+      enabled: true
