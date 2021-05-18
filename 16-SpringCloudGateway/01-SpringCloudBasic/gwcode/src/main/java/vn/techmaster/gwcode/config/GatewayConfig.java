@@ -1,6 +1,5 @@
 package vn.techmaster.gwcode.config;
 
-import org.springframework.cloud.gateway.filter.ratelimit.RateLimiter;
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
@@ -29,6 +28,6 @@ public class GatewayConfig {
 
   @Bean
   public RedisRateLimiter redisRateLimiter() {
-    return new RedisRateLimiter(100, 200);
+    return new RedisRateLimiter(100, 300);
   }
 }

@@ -20,7 +20,8 @@ spring:
                 replenishRate: 1
                 burstCapacity: 2
                 requestedTokens: 1
-management:
-  health:
-    redis:
-      enabled: true
+
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
