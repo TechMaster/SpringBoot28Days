@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.techmaster.filmlisting.model.Film;
 
 @RestController
-@RequestMapping(value = "/film")
+@RequestMapping("/film")
 public class FilmController {
   @GetMapping(value = "/films")
   public ResponseEntity<List<Film>> getAllFilms() {

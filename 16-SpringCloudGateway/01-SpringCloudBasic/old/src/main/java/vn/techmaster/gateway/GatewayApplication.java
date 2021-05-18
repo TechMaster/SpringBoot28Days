@@ -13,11 +13,10 @@ public class GatewayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayApplication.class, args);
 	}
-
+	
 	@Bean
 	public KeyResolver userKeyResolver() {
 		return exchange -> Mono.just("1");
 	}
-	
 
 }

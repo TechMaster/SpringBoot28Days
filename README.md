@@ -237,3 +237,13 @@ Giới thiệu về các loại Query phổ biến trong JPA
 1. Tân
 2. Hằng học trực tuyến
 
+## 16. Docker do thầy Thưởng dạy
+
+## 17. Spring Cloud API Gateway
+
+[Nội dung thực hành](https://techmaster.vn/posts/36479/spring-cloud-gateway-va-rate-limitter)
+
+**Những bạn nghỉ**
+1. Tân
+2. Hằng học trực tuyến
+
