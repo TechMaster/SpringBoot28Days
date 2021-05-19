@@ -22,7 +22,6 @@ public class LoggingFilter implements GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-
         Set<URI> originalUris  = exchange.getAttribute(GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
         if (originalUris != null) {
             URI originalUri = originalUris.iterator().next();
@@ -32,8 +31,7 @@ public class LoggingFilter implements GlobalFilter {
             URI routeUri = exchange.getAttribute(GATEWAY_REQUEST_URL_ATTR);
             log.info("Incoming request " + originalUri.toString() + " is routed to id: " + route.getId()
                     + ", uri:" + routeUri);
-        }
-        
+        } 
         return chain.filter(exchange);
     }
 }

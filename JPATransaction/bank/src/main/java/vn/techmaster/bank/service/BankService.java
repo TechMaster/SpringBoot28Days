@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.techmaster.bank.controller.response.TransferResult;
+import vn.techmaster.bank.exception.AccountErrorCode;
+import vn.techmaster.bank.exception.AccountException;
 import vn.techmaster.bank.exception.BankErrorCode;
 import vn.techmaster.bank.exception.BankException;
 import vn.techmaster.bank.exception.DummyException;
@@ -47,43 +49,48 @@ public class BankService {
     
   }
 
+  public Account getAccountById(long accountID) throws AccountException{
+    Optional<Account> oAccount = accountRepo.findById(accountID);
+    
+    if (oAccount.isPresent()) {
+      Account account = oAccount.get();
+      if (account.getState() == AccountState.DISABLED) {        
+        throw new AccountException(BankErrorCode.ACCOUNT_DISABLED, 
+        "Account " + account.getId() + " of " + account.getOwner() + " is disabled");    
+      } else {
+        return account;
+      }
+    } else {
+      throw new AccountException(BankErrorCode.ID_NOT_FOUND, 
+      "Account id " + accountID + " does not exist");
+    }
+  }
+
   @Transactional(rollbackOn = { BankException.class })
   public TransferResult transfer(long fromAccID, long toAccID, long amount) {
-    Optional<Account> o_fromAccount = accountRepo.findById(fromAccID);
-    Optional<Account> o_toAccount = accountRepo.findById(toAccID);
     Account fromAccount;
     Account toAccount;
     
-
-    if (o_fromAccount.isPresent()) {
-      fromAccount = o_fromAccount.get();
-    } else {
-      String detail = "From Account id " + fromAccID + " does not exist";
-      loggingService.saveLog(fromAccID, toAccID, amount, BankErrorCode.ID_NOT_FOUND, detail);
-      throw new BankException(BankErrorCode.ID_NOT_FOUND, "Invalid bank account",
-        detail);
+    try {
+      fromAccount = getAccountById(fromAccID);
+    } catch (AccountException accountException){
+      loggingService.saveLog(fromAccID, toAccID, amount, accountException.getErrorCode(), accountException.getMessage());
+      throw new BankException(accountException.getErrorCode(), "From Account Error", accountException.getMessage());
     }
 
-    if (o_toAccount.isPresent()) {
-      toAccount = o_toAccount.get();
-    } else {
-      String detail = "To Account id " + toAccID + " does not exist";
-      loggingService.saveLog(fromAccID, toAccID, amount, BankErrorCode.ID_NOT_FOUND, detail);
-      throw new BankException(BankErrorCode.ID_NOT_FOUND, "Invalid bank account", detail);
+    try {
+      toAccount = getAccountById(toAccID);
+    } catch (AccountException accountException){
+      loggingService.saveLog(fromAccID, toAccID, amount, accountException.getErrorCode(), accountException.getMessage());
+      throw new BankException(accountException.getErrorCode(), "To Account Error", accountException.getMessage());
     }
+   
 
     if (fromAccount.getBalance() < amount) {
       String detail = "Account " + fromAccount.getId() + " of " + fromAccount.getOwner() + " does not have enough balance";
       loggingService.saveLog(fromAccID, toAccID, amount, BankErrorCode.BALANCE_NOT_ENOUGH, detail);
       throw new BankException(BankErrorCode.BALANCE_NOT_ENOUGH, "Not enough balance", detail);
     }
-
-    if (toAccount.getState() == AccountState.DISABLED) {
-      String detail = "Account " + toAccount.getId() + " of " + toAccount.getOwner() + " is disabled";
-      loggingService.saveLog(fromAccID, toAccID, amount, BankErrorCode.ACCOUNT_DISABLED, detail);
-      throw new BankException(BankErrorCode.ACCOUNT_DISABLED, "Account is disabled", detail);      
-    }
-    
     
     fromAccount.setBalance(fromAccount.getBalance() - amount);
     /* Thử nghiệm chức năng dontRollbackOn 
