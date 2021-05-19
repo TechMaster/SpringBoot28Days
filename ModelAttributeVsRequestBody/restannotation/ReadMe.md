@@ -1,0 +1,1 @@
+Mã nguồn minh hoạ cho bài viết [Spring Boot: @PathVariable vs @RequestParam, @ModelAttribute vs @RequestBody](https://techmaster.vn/posts/36483/spring-boot-atpathvariable-vs-atrequestparam-atmodelattribute-vs-atrequestbody)

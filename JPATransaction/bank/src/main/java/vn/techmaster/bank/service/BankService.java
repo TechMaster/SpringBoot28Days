@@ -73,18 +73,12 @@ public class BankService {
     
     try {
       fromAccount = getAccountById(fromAccID);
-    } catch (AccountException accountException){
-      loggingService.saveLog(fromAccID, toAccID, amount, accountException.getErrorCode(), accountException.getMessage());
-      throw new BankException(accountException.getErrorCode(), "From Account Error", accountException.getMessage());
-    }
-
-    try {
       toAccount = getAccountById(toAccID);
     } catch (AccountException accountException){
       loggingService.saveLog(fromAccID, toAccID, amount, accountException.getErrorCode(), accountException.getMessage());
-      throw new BankException(accountException.getErrorCode(), "To Account Error", accountException.getMessage());
+      throw new BankException(accountException.getErrorCode(), "Account Error", accountException.getMessage());
     }
-   
+
 
     if (fromAccount.getBalance() < amount) {
       String detail = "Account " + fromAccount.getId() + " of " + fromAccount.getOwner() + " does not have enough balance";
