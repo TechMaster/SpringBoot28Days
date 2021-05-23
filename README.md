@@ -247,3 +247,14 @@ Giới thiệu về các loại Query phổ biến trong JPA
 1. Tân
 2. Hằng học trực tuyến
 
+## 18. Scheduling & JPA Transaction
+- [Dự án ví dụ căn bản](18-Scheduling/schedule/01Basic/demoschedule)
+- [Dự án ví dụ IOT](18-Scheduling/schedule/02WebClientIOT/iot)
+
+Giải thích Transaction và Nested Transaction.
+
+## 19. Chấm bài Vincinema
+
+1. Nhật mới định nghĩa Entity, chưa chèn dữ liệu thử
+2. Tuấn Anh mới xong phần râu ria
+

@@ -31,7 +31,7 @@ public class RESTController {
   }
 
   @PostMapping("/transferjson")
-  public String transferjson(  TransferRequest request) {
+  public String transferjson(@RequestBody TransferRequest request) {
     return request.toString();
   }
 }
