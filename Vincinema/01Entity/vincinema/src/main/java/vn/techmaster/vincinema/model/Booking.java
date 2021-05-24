@@ -9,17 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -49,16 +46,10 @@ public class Booking {
 
   private Long totalAmount; //Số tiền cần phải trả 
 
-  @ManyToMany
-  @JoinTable(
-      name = "booking_seat",
-      joinColumns = @JoinColumn(name = "booking_id"),
-      inverseJoinColumns = @JoinColumn(name = "seat_id")
-  )
-  
-  @JsonManagedReference
+  @OneToMany(mappedBy = "booking")
+  @JsonIgnore //để tránh bị xuất ra quá nhiều dữ liệu lồng nhau
   @Builder.Default
-  private List<Seat> seats = new ArrayList<>();
+  private List<BookingSeat> bookingSeats = new ArrayList<>();
 
   @PrePersist
   private void prePersist() {

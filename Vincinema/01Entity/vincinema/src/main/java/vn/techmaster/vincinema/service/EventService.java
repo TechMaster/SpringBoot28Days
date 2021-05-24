@@ -1,15 +1,9 @@
 package vn.techmaster.vincinema.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +24,8 @@ public class EventService {
   @Autowired private FilmRepository filmRepo;
   @Autowired private EventRepository eventRepo;
 
-  private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); 
-
   @Transactional
-  public void generateEvents() throws ParseException {
+  public void generateEvents() {
     Room r01BaTrieu = roomRepo.findByNameAndCinemaNameContaining("01", "Vincom Center Bà Triệu");
     Room r02BaTrieu = roomRepo.findByNameAndCinemaNameContaining("02", "Vincom Center Bà Triệu");
     
@@ -48,7 +40,7 @@ public class EventService {
     Event eBanTayDietQuyAM = Event.builder()
     .film(banTayDietQuy)
     .room(r01BaTrieu)
-    .price(10000)
+    .price(100000)
     .date("2021-05-23")
     .beginAt("10:00")
     .build();
@@ -56,7 +48,7 @@ public class EventService {
     Event eBanTayDietQuyPM = Event.builder()
     .film(banTayDietQuy)
     .room(r02BaTrieu)
-    .price(12000)
+    .price(120000)
     .date("2021-05-22")
     .beginAt("20:00")
     .build();
@@ -69,7 +61,7 @@ public class EventService {
     Event palmSpringPM = Event.builder()
     .film(palmSpring)
     .room(r01Royal)
-    .price(15000)
+    .price(150000)
     .date("2021-05-23")
     .beginAt("20:00")
     .build();

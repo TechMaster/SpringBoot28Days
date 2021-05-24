@@ -21,7 +21,6 @@ public class RoomController {
   public ResponseEntity<Room> findByNameAndCinema(
     @PathVariable("roomName") String roomName, 
     @PathVariable("cinema") String cinema) {
-      //return  ResponseEntity.ok().body(roomRepository.findByNameAndCinema("01", "Vincom Center Bà Triệu"));
       return  ResponseEntity.ok().body(roomRepository.findByNameAndCinemaNameContaining(roomName, cinema));
       
     }

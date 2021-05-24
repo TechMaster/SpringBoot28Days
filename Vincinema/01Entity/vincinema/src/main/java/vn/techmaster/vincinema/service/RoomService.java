@@ -1,7 +1,5 @@
 package vn.techmaster.vincinema.service;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -11,16 +9,12 @@ import org.springframework.stereotype.Service;
 
 import vn.techmaster.vincinema.model.Cinema;
 import vn.techmaster.vincinema.model.Room;
-import vn.techmaster.vincinema.model.Seat;
 import vn.techmaster.vincinema.repository.CinemaRepository;
-import vn.techmaster.vincinema.repository.RoomRepository;
 
 @Service
 public class RoomService {
   @PersistenceContext
   private EntityManager em;
-
-  @Autowired private RoomRepository roomRepo;
 
   @Autowired private CinemaRepository cinemaRepo;
   
@@ -75,7 +69,4 @@ public class RoomService {
     em.persist(r08NguyenChiThanh);
   }
 
-  List<Seat> getSeats(Long roomID, String seatPattern) {
-    Room room = roomRepo.getById(roomID);
-  }
 }
