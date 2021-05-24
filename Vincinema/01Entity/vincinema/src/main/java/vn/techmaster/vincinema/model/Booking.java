@@ -44,12 +44,16 @@ public class Booking {
   @Builder.Default
   private boolean isPaid = false;
 
-  private Long totalAmount; //Số tiền cần phải trả 
+  private Long totalAmount; //Số tiền cần phải trả
+
+  private String seats; //Lưu danh sách chỗ ngồi cách nhau bằng một dấu phẩy.
 
   @OneToMany(mappedBy = "booking")
   @JsonIgnore //để tránh bị xuất ra quá nhiều dữ liệu lồng nhau
   @Builder.Default
   private List<BookingSeat> bookingSeats = new ArrayList<>();
+
+
 
   @PrePersist
   private void prePersist() {

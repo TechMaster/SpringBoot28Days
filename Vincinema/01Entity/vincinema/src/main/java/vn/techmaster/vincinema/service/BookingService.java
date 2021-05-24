@@ -16,9 +16,11 @@ import vn.techmaster.vincinema.model.BookingSeat;
 import vn.techmaster.vincinema.model.Customer;
 import vn.techmaster.vincinema.model.Event;
 import vn.techmaster.vincinema.model.Seat;
+import vn.techmaster.vincinema.repository.BookingRepository;
 import vn.techmaster.vincinema.repository.EventRepository;
 import vn.techmaster.vincinema.repository.SeatRepository;
 import vn.techmaster.vincinema.request.BookingRequest;
+import vn.techmaster.vincinema.response.BookingInfo;
 
 @Service
 public class BookingService {
@@ -27,6 +29,10 @@ public class BookingService {
   @Autowired private EventRepository eventRepo;
 
   @Autowired private SeatRepository seatRepo;
+
+  @Autowired private BookingRepository bookingRepo;
+
+  @Autowired private CustomerService customerService;
 
   @Transactional
   public void generateBookings() {
@@ -57,46 +63,43 @@ public class BookingService {
 
   @Transactional(value = TxType.REQUIRES_NEW, rollbackOn = PersistenceException.class)
   public void generateBookingsDuplicateSeats() {
-    createBooking(
+    createBooking(new BookingRequest(
       "PALM SPRINGS", 
       "Royal City",
       "2021-05-23",
       "0882299029", "dzung@gmail.com",
       "B9,B10" //Trùng ghế B9
-    );
+    ));
   }
 
   //Cần kiểm tra duplicate
   @Transactional
   public Booking createBooking(BookingRequest bookingRequest) {
     List<Event> events = eventRepo.findByFilmCinemaDate(
-      bookingRequest.getFilmTitle(), 
+      bookingRequest.getFilmTitle().toUpperCase(), 
       bookingRequest.getCinema(), 
       bookingRequest.getDate());
 
     if (events.isEmpty()) return null;
   
     Event event = events.get(0);
-    Customer customer = Customer.builder()
-    .mobile(bookingRequest.getMobile())
-    .email(bookingRequest.getEmail())
-    .build();
 
-    em.persist(customer);
+    Customer customer = customerService.insertOrUpdate(bookingRequest.getMobile(), bookingRequest.getEmail());
 
     List<Seat> seats = seatRepo.findByRoomIdAndNameIn(event.getRoom().getId(), bookingRequest.getSeats().split(","));
-    //Gọi hàm tính chi phí ở đây      
-
+         
     Booking booking = Booking.builder()
     .event(event)
     .customer(customer)
-    .build();    
+    .seats(bookingRequest.getSeats())
+    .build();
     
     long totalAmount = 0;
 
     for (Seat seat: seats) {
       BookingSeat bs = new BookingSeat(booking, seat);
       em.persist(bs);
+      //Gọi hàm tính chi phí ở đây 
       switch (seat.getSeatType()) {
         case VIP:
           totalAmount += event.getPrice() * 1.2f;
@@ -112,5 +115,9 @@ public class BookingService {
     booking.setTotalAmount(totalAmount);
     em.persist(booking);
     return booking;
-  }  
+  }
+
+  public List<BookingInfo> getBookingInfo() {
+    return bookingRepo.getBookingInfo();
+  }
 }

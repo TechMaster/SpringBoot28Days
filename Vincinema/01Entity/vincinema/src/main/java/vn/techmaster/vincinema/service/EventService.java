@@ -72,7 +72,7 @@ public class EventService {
     Event trumCuoiSieuDangPM = Event.builder()
     .film(trumCuoiSieuDang)
     .room(r01NguyenChiThanh)
-    .price(15000)
+    .price(180000)
     .date("2021-05-24")
     .beginAt("19:00")
     .build();

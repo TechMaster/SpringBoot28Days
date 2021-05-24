@@ -16,11 +16,12 @@ public class BookingRequest {
   message="Ngày phải theo định dang yyyy-mm-dd")
   private String date;
 
+  @Pattern(regexp = "^\\d{10,11}$", message = "Số di động phải có từ 10 đến 11 chữ số")
+  private String mobile;
+
   @Pattern(regexp = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", 
   message="Email không hợp lệ")
   private String email;
-
-  @Pattern(regexp = "^\\d{10,11}$", message = "Số di động phải có từ 10 đến 11 chữ số")
-  private String mobile;
+ 
   private String seats;
 }
