@@ -269,4 +269,9 @@ Giải thích Transaction và Nested Transaction.
 
 ## 20. Spring Security
 
+## 22. SeatBooking simulation
+1. Demo chiến thuật tối giản, tập trung xử lý thuật toán quan trọng [https://github.com/TechMaster/SpringBoot28Days/tree/main/22-SeatBooking/seatbooking](https://github.com/TechMaster/SpringBoot28Days/tree/main/22-SeatBooking/seatbooking)
+2. Đức - Tuấn Anh demo ứng dụng đã deploy lên Heroku sử dụng Postgresql database, front end OutSystem
+3. Hỗ trợ Đông fix bug khi tạo bảng cần tránh trùng tên với từ khoá SQL như user, order, where, in, select
 
+Hẹn mọi người thứ 4 bảo vệ tiếp

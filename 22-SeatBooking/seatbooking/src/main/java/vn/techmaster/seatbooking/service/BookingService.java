@@ -35,7 +35,7 @@ public class BookingService {
     // Sinh ra các hàng ghế từ A -> E, mỗi hàng có 10 ghế ban đầu ở trạng thái AVAILABLE
     String[] rows = {"A", "B", "C", "D", "E"};
     for (String row : rows) {
-      for (int i = 0; i < 10; i++) {
+      for (int i = 1; i <= 10; i++) {
         allSeats.add(row + i);
       }
     }
@@ -64,9 +64,14 @@ public class BookingService {
         seatNo,
         new Customer(request.getMobile()), 
         bookedTime);
-
-      bookingSeats.put(seatNo, bookingSeat);
-      bookingCustomers.put(request.getMobile(), bookingSeat);
+        try {
+          mutex.acquire();
+          bookingSeats.put(seatNo, bookingSeat);
+          bookingCustomers.put(request.getMobile(), bookingSeat);
+        } catch (InterruptedException e){
+        } finally {
+          mutex.release();
+        }
     }
     
   }
