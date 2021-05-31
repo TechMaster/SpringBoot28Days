@@ -11,12 +11,13 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class SecurityConfig {
   @Bean
-  public UserDetailsService userDetailsService() {
-    var userDetailsService = new InMemoryUserDetailsManager();
-    var user = User.withUsername("tom@gmail.com").password("123").
+  public UserDetailsService userDetailsService() {    
+    var tom = User.withUsername("tom@gmail.com").password("123").
     authorities("read").build();
-    userDetailsService.createUser(user);
-    return userDetailsService;
+    var bob = User.withUsername("bob@gmail.com").password("123").
+    authorities("read").build();
+    
+    return new InMemoryUserDetailsManager(tom, bob);
   }
 
   @Bean

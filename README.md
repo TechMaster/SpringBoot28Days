@@ -254,7 +254,19 @@ Giới thiệu về các loại Query phổ biến trong JPA
 Giải thích Transaction và Nested Transaction.
 
 ## 19. Chấm bài Vincinema
+[Mã nguồn ở đây](https://github.com/TechMaster/SpringBoot28Days/tree/main/Vincinema/01Entity/vincinema)
 
 1. Nhật mới định nghĩa Entity, chưa chèn dữ liệu thử
 2. Tuấn Anh mới xong phần râu ria
+3. Ngọc xong phần chèn dữ liệu
+4. Huy đã xong cả phần thanh toán
+5. Đông code rất nhiều class, nhưng phần giữ chỗ, thanh toán chưa xong
+
+**Phân nhóm**
+1. Đông + Ngọc: Bán xe VinFast
+2. Huy + Nhật: Nhật code React.js nối vào VinCinema
+3. Tuấn Anh + Đức: thuê VPS, deploy Spring Boot app lên IP tĩnh, kết nối Out System vào
+
+## 20. Spring Security
+
 
