@@ -9,4 +9,5 @@ This module contains articles about Spring WebSockets.
 
 https://spring.io/guides/gs/messaging-stomp-websocket/
 https://github.com/sockjs/sockjs-client
+https://www.baeldung.com/spring-websockets-send-message-to-user
 

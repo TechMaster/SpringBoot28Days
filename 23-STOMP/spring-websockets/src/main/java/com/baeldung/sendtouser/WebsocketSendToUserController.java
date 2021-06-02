@@ -15,8 +15,8 @@ public class WebsocketSendToUserController {
 
     private Gson gson = new Gson();
 
-    @MessageMapping("/message")
-    @SendToUser("/queue/reply")
+    @MessageMapping("/message")  //Nhận tất cả các message gửi lên có đường dẫn là /app/message
+    @SendToUser("/queue/reply")  //Gửi message cho client ở đường dẫn /queue/reply
     public String processMessageFromClient(@Payload String message, Principal principal) throws Exception {
         return gson.fromJson(message, Map.class).get("name").toString();
     }
