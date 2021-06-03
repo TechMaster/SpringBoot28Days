@@ -1,0 +1,15 @@
+INSERT INTO genre(name) VALUES('Hành động');
+INSERT INTO genre(name) VALUES('Tâm lý');
+INSERT INTO genre(name) VALUES('Hài');
+INSERT INTO genre(name) VALUES('Tình cảm');
+INSERT INTO genre(name) VALUES('Sử thi');
+INSERT INTO genre(name) VALUES('Kiếm hiệp');
+INSERT INTO genre(name) VALUES('Ca nhạc');
+INSERT INTO genre(name) VALUES('Tài liệu');
+INSERT INTO genre(name) VALUES('Hoạt hình');
+INSERT INTO genre(name) VALUES('Hồi hộp');
+INSERT INTO genre(name) VALUES('Tội phạm');
+INSERT INTO genre(name) VALUES('Khoa học viễn tưởng');
+INSERT INTO genre(name) VALUES('Gia đình');
+INSERT INTO genre(name) VALUES('Thần thoại');
+INSERT INTO genre(name) VALUES('Kinh dị');

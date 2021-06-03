@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book ticket</title>
+</head>
+<body>
+  <h1>Booking ticket</h1>
+  <form method="post" action="#" th:action="@{/booking/ticket}" th:object="${bookingRequest}">
+    <input type="text" size="100" placeholder="Chọn tên film" th:field="*{filmTitle}"/><br><br>
+    <input type="text" size="100" placeholder="Chọn rạp" th:field="*{cinema}"/><br><br>
+    <input type="text" size="100" placeholder="Chọn ngày yyyy-mm-dd" th:field="*{date}"/><br><br>
+    <input type="text" size="100" placeholder="Di động của bạn" th:field="*{mobile}"/><br><br>
+    <input type="text" size="100" placeholder="Email của bạn" th:field="*{email}"/><br><br>
+    <input type="text" size="100" placeholder="Ghế: A7,A8" th:field="*{seats}"/><br><br>
+    <button type="submit">Đặt chỗ</button>
+
+  </form>
+</body>
+</html>

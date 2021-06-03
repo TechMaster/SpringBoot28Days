@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find event</title>
+</head>
+<body>
+  <h1>Tìm lịch chiếu</h1>
+  <form action="#" th:action="@{/booking/findevent}" th:object="${findEventRequest}" method="post">
+    <input th:field="*{filmTitle}" placeholder="tên phim" size="100"><br><br>
+    <input th:field="*{showDate}" placeholder="ngày chiếu yyyy-mm-dd" size="20"><br><br>
+    <select th:field="*{cinemaID}">
+      <option th:each="cinema : ${allCinemas}"
+              th:value="${cinema.id}"
+              th:text="${cinema.name}">
+      </option>    
+  </select><br><br>
+  <button type="submit">Tìm phim</button>
+  </form>
+</body>
+</html>

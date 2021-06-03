@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suất chiếu</title>
+</head>
+<body>
+  <ul >
+    <li th:each="event: ${events}">
+      <p>
+        <h2 th:text="${event.film.title}"></h2><br>
+        <span th:text="${'Rạp : ' + event.room.cinema.name}"></span><br>
+        <span th:text="${'Phòng : ' + event.room.name}"></span><br>
+        <span th:text="${'Ngày : ' + event.date}"></span><br>
+        <span th:text="${'Giờ : ' + event.beginAt}"></span><br>
+      </p>
+      <a th:href="${'/booking/event/' + event.id}">Đặt chỗ</a>
+    </li>
+  </ul>
+</body>
+</html>
