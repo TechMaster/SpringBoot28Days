@@ -12,7 +12,7 @@ import vn.techmaster.vincinema.model.Cinema;
 import vn.techmaster.vincinema.service.CinemaService;
 
 @RestController
-@RequestMapping(value = "/api/cinema")
+@RequestMapping(value = "/api/public/cinema")
 public class CinemaController {
   @Autowired private CinemaService cinemaService;
   @GetMapping
