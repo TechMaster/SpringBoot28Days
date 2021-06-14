@@ -19,7 +19,7 @@ public class FilmController {
   @Autowired private FilmService filmService;
 
   @GetMapping()
-  @PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasRole('ADMIN')")  
   public ResponseEntity<List<Film>> findAll() {
     return ResponseEntity.ok().body(filmService.findAll());
   }  

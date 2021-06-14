@@ -15,6 +15,7 @@ import vn.techmaster.vincinema.model.Role;
 import vn.techmaster.vincinema.model.User;
 import vn.techmaster.vincinema.repository.RoleRepository;
 import vn.techmaster.vincinema.repository.UserRepository;
+import vn.techmaster.vincinema.security.Authority;
 
 @Service
 public class SecurityService implements UserDetailsService {
@@ -37,7 +38,7 @@ public class SecurityService implements UserDetailsService {
 
   @Transactional
   public void generateUsersRoles() {
-    Role roleAdmin = new Role("ADMIN");
+    Role roleAdmin = new Role("ROLE_ADMIN");
     Role roleUser = new Role("USER");
     Role roleAuthor = new Role("AUTHOR");
     Role roleEditor = new Role("EDITOR");

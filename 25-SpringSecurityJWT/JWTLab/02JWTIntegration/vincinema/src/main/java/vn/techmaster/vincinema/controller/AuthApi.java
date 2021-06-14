@@ -24,13 +24,10 @@ import vn.techmaster.vincinema.security.JwtTokenUtil;
 @RestController
 @RequestMapping(path = "api/public")
 public class AuthApi {
-    @Autowired private AuthenticationManager authenticationManager;
-    @Autowired private JwtTokenUtil jwtTokenUtil;
-    
-    @GetMapping("login")
-    public ResponseEntity<String> testLogin() {
-        return ResponseEntity.ok().body("Test ok");
-    }
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("login")
     public ResponseEntity<UserPOJO> login(@RequestBody @Valid AuthRequest request) {
@@ -46,10 +43,5 @@ public class AuthApi {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
-    /*
-     * @PostMapping("register") public UserView register(@RequestBody @Valid
-     * CreateUserRequest request) { return userService.create(request); }
-     */
 
 }
