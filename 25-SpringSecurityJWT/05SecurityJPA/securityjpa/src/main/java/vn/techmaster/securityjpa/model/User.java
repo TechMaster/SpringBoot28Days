@@ -16,7 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.NaturalId;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,9 +36,7 @@ import lombok.NoArgsConstructor;
 public class User implements UserDetails {
   private static final long serialVersionUID = 6268404888144025944L;
 
-  @Id
-  @Column(name = "user_id")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @NaturalId
@@ -53,7 +54,7 @@ public class User implements UserDetails {
     inverseJoinColumns = @JoinColumn(name = "role_id")
   )
   private Set<Role> roles = new HashSet<>();
-
+  
   public void addRole(Role role) {
     roles.add(role);
     role.getUsers().add(this);
@@ -75,7 +76,7 @@ public class User implements UserDetails {
   //-------- Implements các methods của interface UserDetails
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    List<SimpleGrantedAuthority> authorities = new ArrayList<>();         
+    Set<GrantedAuthority> authorities = new HashSet<>();    
     for (Role role : roles) {
         authorities.add(new SimpleGrantedAuthority(role.getName()));
     }      
@@ -100,5 +101,25 @@ public class User implements UserDetails {
   @Override
   public boolean isEnabled() {
     return this.enabled;
+  }
+
+  //---@GET
+ //Một User viết nhiều Post
+  @OneToMany(
+    cascade = CascadeType.ALL,
+    orphanRemoval = true,
+    fetch = FetchType.LAZY
+  )
+  @JoinColumn(name = "user_id")
+  @JsonIgnore
+  private List<Post> posts = new ArrayList<>();
+  public void addPost(Post post) {
+    posts.add(post);
+    post.setUser(this);
+  }
+
+  public void removePost(Post post) {
+    posts.remove(post);
+    post.setUser(null);
   }
 }

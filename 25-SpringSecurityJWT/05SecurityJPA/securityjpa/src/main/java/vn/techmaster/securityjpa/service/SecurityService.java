@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import vn.techmaster.securityjpa.model.Post;
 import vn.techmaster.securityjpa.model.Role;
 import vn.techmaster.securityjpa.model.User;
 import vn.techmaster.securityjpa.repository.RoleRepository;
@@ -43,6 +44,8 @@ public class SecurityService implements ISecurityService, UserDetailsService {
     Role roleAuthor = new Role("AUTHOR");
     Role roleEditor = new Role("EDITOR");
 
+    //Muốn sử dụng cú pháp hasRole hay RolesAllowed thì phải đặt tên role là "ROLE_EDITOR"
+
     roleRepository.save(roleAdmin);
     roleRepository.save(roleUser);
     roleRepository.save(roleAuthor);
@@ -64,6 +67,13 @@ public class SecurityService implements ISecurityService, UserDetailsService {
 
     User jane =  createUser("jane", "123", roleAuthor);
     userRepository.save(jane);
+
+    bob.addPost(new Post("Bob love Spring Boot"));
+    bob.addPost(new Post("Bob love Việt Nam"));
+
+    alice.addPost(new Post("Alice likes dancing"));
+    tom.addPost(new Post("Tom loves drawing"));
+    admin.addPost(new Post("Admin never tweets"));
     
     userRepository.flush();
   }

@@ -34,6 +34,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor //Phải có không là báo lỗi No default constructor for entity vn.techmaster.securityjpa.model.User
 public class User implements UserDetails {
+
   private static final long serialVersionUID = 6268404888144025944L;
 
   @Id
@@ -43,7 +44,7 @@ public class User implements UserDetails {
 
   @NaturalId
   @Column(unique = true, nullable = false)
-  private String username;
+  public String username;
 
   @Column(nullable = false)
   private String password;

@@ -47,6 +47,15 @@
       <td><a href="/author">Author page</td>
     </tr>
   </table>
+  <p>
+    <ul>
+      <li><a href="/api/user/tom">/api/user/tom chỉ có tom mới có quyền xem</a></li>
+      <li><a href="/api/user/alice">/api/user/alice chỉ có alice mới có quyền xem</a></li>
+      <li><a href="/api/post/1">/api/post/1 bài viết của Bob, chỉ Bob login mới xem được</a></li>
+      <li><a href="/api/post/2">/api/post/2 bài viết của Bob, thử login bằng Alice sẽ không xem được</a></li>
+      <li><a href="/api/post">/api/post lọc bài viết do chính người đang login làm tác giả</a></li>
+    </ul>
+  </p>
 
 </body>
 </html>
