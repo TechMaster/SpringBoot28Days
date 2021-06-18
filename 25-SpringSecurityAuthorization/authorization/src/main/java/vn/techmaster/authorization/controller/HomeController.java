@@ -39,7 +39,6 @@ public class HomeController {
     return "admin";
   }
 
-  //@Secured("USER")
   @PreAuthorize("hasAuthority('USER')")
   @GetMapping("/user")
   public String showUserPage() {

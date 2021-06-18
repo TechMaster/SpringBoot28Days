@@ -7,14 +7,14 @@
   <title>Home page</title>
 </head>
 <body>
-  <h1 th:text="${'Hi ' + login_name}"></h1>
-  <ul th:each="authority : ${authorities}">
-    <li th:text="${authority.getAuthority()}"></li>
-  </ul>
+  <h1 th:text="${login_name != ''} ? 'Hi ' + ${login_name} : 'Hi Anonymous'"></h1>
   <a href="#" th:href="@{/logout}" th:if="${login_name != ''}" th:text="${'Log out (' + login_name + ')'}"></a>
   <a href="#" th:href="@{/login}" th:unless="${login_name != ''}" th:text="Login"></a>
-
-  <br><br>
+  <p><h4 th:text="${login_name + ' có các role sau đây:'}"></h4>
+    <ul th:each="authority : ${authorities}">
+      <li th:text="${authority.getAuthority()}"></li>
+    </ul>
+  </p>
   <table border="1">
     <tr>
       <th>User name</th>

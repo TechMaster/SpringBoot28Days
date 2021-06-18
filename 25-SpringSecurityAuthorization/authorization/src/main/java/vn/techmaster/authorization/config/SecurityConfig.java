@@ -11,16 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import vn.techmaster.authorization.service.SecurityService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = false, jsr250Enabled = false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-  @Autowired
-  private SecurityService securityService;
-
   @Bean
   public PasswordEncoder encoder() {
     return new BCryptPasswordEncoder();
@@ -28,7 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-
     http.authorizeRequests()
      /* .antMatchers("/admin").hasAuthority("ADMIN")
       .antMatchers("/free").hasAnyAuthority("ADMIN", "USER", "AUTHOR", "EDITOR")
@@ -37,10 +31,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers("/editor").hasAnyAuthority("EDITOR")*/
       .antMatchers("/h2-console/**").permitAll().and().csrf().ignoringAntMatchers("/h2-console/**") // https://jessitron.com/2020/06/15/spring-security-for-h2-console/
       .and().headers().frameOptions().sameOrigin().and().formLogin();
-  }
-
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(securityService).passwordEncoder(encoder());
   }
 }
